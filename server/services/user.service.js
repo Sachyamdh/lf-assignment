@@ -1,7 +1,11 @@
 const slugify = require("slugify");
 const { prisma } = require("../config/db");
 const AppError = require("../middleware/AppError");
-const { hashing, generateEmailToken } = require("../utils/authUtils");
+const {
+  hashing,
+  generateEmailToken,
+  comparePassword,
+} = require("../utils/authUtils");
 const { sendVerificationEmail } = require("../middleware/mailer");
 
 class UserService {
@@ -16,10 +20,23 @@ class UserService {
     this.url = process.env.APP_URL;
   }
 
+  //get all users
+  async getAllUsers() {
+    const users = await prisma.user.findMany({
+      where: { isVerified: true },
+      select: {
+        id: true,
+        email: true,
+        userName: true,
+      },
+    });
+    return users;
+  }
+
   //get user by email
-  async getUserByEmail(email) {
+  async getSingleUser(id) {
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { id: id },
       select: {
         id: true,
         email: true,
@@ -122,7 +139,6 @@ class UserService {
   //email verification
   async verifyEmail(token) {
     try {
-      console.log("here", token);
       const user = await prisma.user.findUnique({
         where: { token },
         select: {
@@ -161,7 +177,52 @@ class UserService {
     }
   }
 
-  // async deleteUser(id) {}
+  async deleteUser(id, password) {
+    const user = await prisma.user.findUnique({
+      where: { id: id },
+      select: {
+        password: true,
+      },
+    });
+    if (!user) {
+      throw new AppError("User not found", "User not found", 404);
+    }
+    console.log(password, user.password);
+    // Check if the users password is valid
+    const isPasswordValid = await comparePassword(password, user.password);
+
+    // if password is not valid, throw an error
+    if (!isPasswordValid) {
+      throw new AppError("Invalid credentials", "Password is invalid", 401);
+    }
+
+    await prisma.user.delete({
+      where: { id: id },
+    });
+    return true;
+  }
+
+  async updateUser(id, data) {
+    const user = await prisma.user.findUnique({
+      where: { id: id },
+      select: {
+        id: true,
+        email: true,
+        userName: true,
+      },
+    });
+    if (!user) {
+      throw new AppError("User not found", "User not found", 404);
+    }
+    const updatedUser = await prisma.user.update({
+      where: { id: id },
+      data: {
+        ...data,
+      },
+    });
+    
+    return updatedUser;
+  }
 }
 
 module.exports = new UserService();

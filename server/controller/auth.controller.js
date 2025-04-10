@@ -5,42 +5,9 @@ const { jwtToken } = require("../utils/authUtils");
 //signUp User
 const signUp = async (req, res) => {
   const { email, password, confirmPassword, ...data } = req?.body;
-  const userService = await User.registerUser(req.body);
+  const user = await User.registerUser(req.body);
 
-  res.status(204).json({ status: "success", message: "Verify Email Address" });
-};
-
-const signIn = async (req, res) => {
-  console.log("Login ", req?.body);
-
-  const { email, password } = req?.body;
-  const user = await User.login(email, password);
-  if (!user) {
-    throw new AppError(
-      "User not found",
-      "No user associated with the email",
-      404
-    );
-  }
-
-  const JWTTOKEN = await jwtToken(user.id, user.userName);
-  if (!JWTTOKEN) {
-    throw new AppError("Server Error", "Token generation failed", 500);
-  }
-  res.setHeader("Authorization", `Bearer ${JWTTOKEN}`);
-  res.status(200).json({ message: "User logged in successfully" });
-};
-
-const resetPassword = async (req, res) => {
-  console.log("Reset password initiated", req.body);
-
-  res.status(200).json({ message: "Password reset successfully" });
-};
-
-const deleteUser = async (req, res) => {
-  console.log("Delete user initiated", req.body);
-
-  res.status(200).json({ message: "User deleted successfully" });
+  res.status(202).json({ status: "success", message: "Verify Email Address" });
 };
 
 const verifyEmail = async (req, res) => {
@@ -67,4 +34,29 @@ const verifyEmail = async (req, res) => {
   });
 };
 
-module.exports = { signUp, verifyEmail, signIn, resetPassword, deleteUser };
+const signIn = async (req, res) => {
+  const { email, password } = req?.body;
+  const user = await User.login(email, password);
+  if (!user) {
+    throw new AppError(
+      "User not found",
+      "No user associated with the email",
+      404
+    );
+  }
+
+  const JWTTOKEN = await jwtToken(user.id, user.userName);
+  if (!JWTTOKEN) {
+    throw new AppError("Server Error", "Token generation failed", 500);
+  }
+  res.setHeader("Authorization", `Bearer ${JWTTOKEN}`);
+  res.status(200).json({ message: "User logged in successfully" });
+};
+
+const resetPassword = async (req, res) => {
+  console.log("Reset password initiated", req.body);
+
+  res.status(200).json({ message: "Password reset successfully" });
+};
+
+module.exports = { signUp, verifyEmail, signIn, resetPassword };
