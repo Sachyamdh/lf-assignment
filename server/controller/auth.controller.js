@@ -5,15 +5,29 @@ const { jwtToken } = require("../utils/authUtils");
 //signUp User
 const signUp = async (req, res) => {
   const { email, password, confirmPassword, ...data } = req?.body;
-  console.log("Data", email, password, confirmPassword, data);
   const userService = await User.registerUser(req.body);
 
   res.status(204).json({ status: "success", message: "Verify Email Address" });
 };
 
 const signIn = async (req, res) => {
-  console.log("Login initiated", req.body);
+  console.log("Login ", req?.body);
 
+  const { email, password } = req?.body;
+  const user = await User.login(email, password);
+  if (!user) {
+    throw new AppError(
+      "User not found",
+      "No user associated with the email",
+      404
+    );
+  }
+
+  const JWTTOKEN = await jwtToken(user.id, user.userName);
+  if (!JWTTOKEN) {
+    throw new AppError("Server Error", "Token generation failed", 500);
+  }
+  res.setHeader("Authorization", `Bearer ${JWTTOKEN}`);
   res.status(200).json({ message: "User logged in successfully" });
 };
 
@@ -41,13 +55,12 @@ const verifyEmail = async (req, res) => {
   }
 
   // Send a success response
-  const JWTToken = jwtToken(user.id, user.userName);
-  if (!JWTToken) {
+  const JWTTOKEN = await jwtToken(user.id, user.userName);
+  if (!JWTTOKEN) {
     throw new AppError("Server Error", "Token generation failed", 500);
   }
-  console.log("JWT Token", JWTToken);
 
-  res.setHeader("Authorization", `Bearer ${JWTToken}`);
+  res.setHeader("Authorization", `Bearer ${JWTTOKEN}`);
   res.status(201).json({
     status: "success",
     message: "Email verified successfully",

@@ -1,5 +1,6 @@
 #env files
 .env
+ERD.png
 
 #node modules
 /server/node_modules

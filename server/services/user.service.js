@@ -32,6 +32,28 @@ class UserService {
     return user;
   }
 
+  //login function
+  async login(email, password) {
+    const user = await prisma.user.findUnique({
+      where: { email: email },
+      select: {
+        id: true,
+        email: true,
+        userName: true,
+        password: true,
+      },
+    });
+
+    if (!user) throw new AppError("User not found", "User not found", 404);
+    // Check if the password is correct
+    const isPasswordValid = await hashing(password, user.password);
+    if (!isPasswordValid) {
+      throw new AppError("Invalid credentials", "Password is invalid", 401);
+    }
+    // Check if the user is verified
+    return user;
+  }
+
   //create user
   async registerUser(userData) {
     const { email, password, confirmPassword, ...data } = userData;
@@ -95,8 +117,6 @@ class UserService {
     } catch (error) {
       throw new AppError(error.message, error.stack, error.status);
     }
-
-    return result;
   }
 
   //email verification
@@ -140,6 +160,8 @@ class UserService {
       console.log("Error", error);
     }
   }
+
+  // async deleteUser(id) {}
 }
 
 module.exports = new UserService();
