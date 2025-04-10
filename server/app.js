@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //swagger Ui setup
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use("/api", appRouter);
+app.use("/api/v1", appRouter);
 
 // app.all("*", async (req, res) => {
 //   console.log(req.originalUrl);

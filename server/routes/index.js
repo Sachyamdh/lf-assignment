@@ -8,6 +8,6 @@ const app = require("../app");
 
 appRouter.use("/auth", authRouter);
 appRouter.use("/", healthRouter);
-appRouter.use("/v1/users", userRouter);
+appRouter.use("/users", userRouter);
 
 module.exports = appRouter;
