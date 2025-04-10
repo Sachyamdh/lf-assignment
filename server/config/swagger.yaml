@@ -180,7 +180,7 @@ paths:
       summary: Verify user email
       tags:
         - Authentication
-      description: Verify a user's email address using a token
+      description: Verify a user's email address using a token that is sent to their email as a url
       parameters:
         - name: token
           in: query
