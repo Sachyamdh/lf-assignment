@@ -7,7 +7,9 @@ const signUp = async (req, res) => {
   const { email, password, confirmPassword, ...data } = req?.body;
   const user = await User.registerUser(req.body);
 
-  res.status(202).json({ status: "success", message: "Verify Email Address" });
+  res
+    .status(202)
+    .json({ status: "success", message: "Check inbox for email verification" });
 };
 
 const verifyEmail = async (req, res) => {
