@@ -106,10 +106,18 @@ class UserService {
             isVerified: false,
           },
         });
+
+        const mailData = {
+          header: "Verify your email",
+          subheader: "Please verify your email address",
+          bodyText: "Click the button below to verify your email address",
+          verificationUrl: `${this.url}/api/auth/veriry-user?token=${verificationToken}`,
+        };
         const mailSent = await sendVerificationEmail(
           email,
           "Verify Your Email",
-          `${this.url}/api/auth/veriry-user?token=${verificationToken}`
+          "verify-email",
+          mailData
         );
         if (!mailSent) {
           throw new AppError("Server Error", "Email not sent", 500);
@@ -124,7 +132,7 @@ class UserService {
           });
           if (foundUser && !foundUser.isVerified) {
             await prisma.user.delete({ where: { id: user.id } });
-            console.log(`Deleted unverified user: ${user.email}`);
+            console.info(`Deleted unverified user: ${user.email}`);
           }
         }, 600000);
 
@@ -220,7 +228,7 @@ class UserService {
         ...data,
       },
     });
-    
+
     return updatedUser;
   }
 }
