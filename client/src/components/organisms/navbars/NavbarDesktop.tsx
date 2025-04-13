@@ -4,7 +4,7 @@ import { useAuth } from "@/src/contexts/AuthContext";
 import { NAV_ITEMS, AUTH_ITEMS } from "@/src/utils/routes";
 import Link from "next/link";
 import Image from "next/image";
-import { ButtonSecondary } from "@/src/components/atoms/buttons/ButtonSecondary";
+import { ButtonPrimary } from "@/src/components/atoms/buttons/ButtonPrimary";
 import styles from "./navbar.module.scss";
 
 export function NavbarDesktop() {
@@ -20,7 +20,7 @@ export function NavbarDesktop() {
       // Only set to false after animation completes
       const timer = setTimeout(() => {
         setShouldRenderDropdown(false);
-      }, 300); // Matches animation duration
+      }, 300);
       return () => clearTimeout(timer);
     }
   }, [menuOpen]);
@@ -100,13 +100,13 @@ export function NavbarDesktop() {
             )}
           </div>
         ) : (
-          <ButtonSecondary
+          <ButtonPrimary
             onClick={signIn}
-            icon={<AUTH_ITEMS.signIn.icon className="w-4 h-4" />}
+            icon={<AUTH_ITEMS.signIn.icon />}
             className={styles.navbar__authButton}
           >
             {AUTH_ITEMS.signIn.name}
-          </ButtonSecondary>
+          </ButtonPrimary>
         )}
       </nav>
     </header>

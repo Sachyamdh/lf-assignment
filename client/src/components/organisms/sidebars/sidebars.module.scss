@@ -1,0 +1,187 @@
+@use "../../../styles/mixins" as mixin;
+@use "../../../styles/animations" as *;
+
+.sidebar {
+  max-width: 15vw;
+  width: 15vw;
+  max-height: 100vh;
+  background-color: var(--color-background-primary);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  &__topHolder {
+    padding: 1.5rem;
+  }
+  &__header {
+    @include mixin.flex(row, space-between, center);
+    padding-bottom: 1rem;
+    h6 {
+      margin: 0;
+    }
+    svg {
+      cursor: pointer;
+
+      &:hover {
+        transition: ease-in-out 0.3s;
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  &__logo {
+    position: relative;
+    width: 4.3rem;
+    height: 4rem;
+    object-fit: contain;
+    cursor: pointer;
+  }
+
+  &__searchButton {
+    background: none;
+    color: var(--color-foreground-secondar);
+    transition: color 0.2s ease;
+    border: none;
+    cursor: pointer;
+    svg {
+      min-width: 1.2rem;
+      min-height: 1.2rem;
+    }
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  &__createButton {
+    width: 100%;
+    @include mixin.flex(row, center, center);
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-background-secondary);
+    color: var(--color-foreground-primary);
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    svg {
+      vertical-align: middle;
+    }
+    &:hover {
+      transition: ease-in-out 0.3s;
+      background: var(--color-accent);
+    }
+  }
+
+  &__folderHolder {
+    @include mixin.flex(column, flex-start, flex-start);
+    gap: 0.2rem;
+    max-height: 50vh;
+    max-width: 15vw;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 1.25rem;
+  }
+
+  &__subHeader {
+    @include mixin.flex(row, space-between, center);
+    padding: 0 1.5rem;
+    h6 {
+      margin: 0;
+    }
+    svg {
+      cursor: pointer;
+      width: 1rem;
+      height: 1rem;
+
+      &:hover {
+        transition: ease-in-out 0.3s;
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  &__fileHolder {
+    box-sizing: border-box;
+    @include mixin.flex(row, flex-start, center);
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    &:hover {
+      background: var(--color-accent);
+      transition: ease-in-out 0.4s;
+    }
+  }
+  &__folderTitle {
+    width: 100%;
+    @include mixin.flex(row, space-between, center);
+  }
+
+  &__folderName {
+    gap: 1rem;
+    display: inline-flex;
+    svg {
+      align-self: center;
+    }
+  }
+  .folder-arrow {
+    transition: transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  
+
+  // .folder-header {
+  //   padding: 0.5rem 1.5rem;
+  //   @include mixin.flex(row, space-between, center);
+  //   cursor: pointer;
+  //   transition: background 0.3s ease-in-out;
+
+  //   &:hover {
+  //     background-color: var(--color-accent);
+  //   }
+
+  //   .folder-name {
+  //     @include mixin.flex(row, flex-start, center);
+  //     gap: 0.75rem;
+  //     font-weight: 500;
+  //     font-size: 0.95rem;
+  //   }
+
+  //   .folder-icon {
+  //     font-size: 1rem;
+  //   }
+
+  //   .folder-arrow {
+  //     font-size: 0.8rem;
+  //     display: flex;
+  //     align-items: center;
+  //   }
+  // }
+
+  // .folder-contents {
+  //   max-height: 500px; // adjust as needed
+  //   overflow: hidden;
+  //   transition: max-height 0.4s ease, opacity 0.4s ease;
+  //   opacity: 1;
+  //   padding-left: 2rem;
+
+  //   &.collapsed {
+  //     max-height: 0;
+  //     opacity: 0;
+  //     padding-left: 2rem;
+  //   }
+  // }
+}
+
+.files-sidebar {
+  width: 20vw;
+  height: 100vh;
+  background-color: var(--color-background-secondary);
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}

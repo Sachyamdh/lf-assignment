@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import styles from "./button.module.scss";
 
-interface ButtonSecondaryProps {
+interface ButtonPrimaryProps {
   children: ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
@@ -10,13 +10,13 @@ interface ButtonSecondaryProps {
   icon?: ReactNode;
 }
 
-export function ButtonSecondary({
+export function ButtonPrimary({
   children,
   onClick,
   type = "button",
   className = "",
   icon,
-}: ButtonSecondaryProps) {
+}: ButtonPrimaryProps) {
   return (
     <button type={type} onClick={onClick} className={`${className}`}>
       {icon && <span className={styles.icon}>{icon}</span>}

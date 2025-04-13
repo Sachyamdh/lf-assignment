@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-// import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { Source_Sans_3 } from "next/font/google";
 import "@/src/styles/global.scss";
-import { Navbar } from "@/src/components/organisms/navbars";
 import { AuthProvider } from "../contexts/AuthContext";
 
 const sourceSans = Source_Sans_3({
@@ -25,10 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sourceSans.variable} antialiased m-0 p-0`}>
         <AuthProvider>
-          {/* <AppRouterCacheProvider> */}
-          <Navbar />
           {children}
-          {/* </AppRouterCacheProvider> */}
         </AuthProvider>
       </body>
     </html>
