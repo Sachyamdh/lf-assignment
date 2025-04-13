@@ -1,0 +1,31 @@
+@use "variables" as *;
+
+@include export-variables();
+
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-foreground-primary);
+  font-family: var(--font-source-sans);
+  line-height: var(--line-height-paragraph);
+  margin: 0;
+  max-width: 100vw;
+}
+button {
+  font-family: var(--font-source-sans);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+
+  &:hover {
+    color: color-mix(in srgb, var(--color-accent), white 15%);
+  }
+}
+
+.date {
+  font-size: var(--font-size-small);
+  color: var(--color-foreground-secondary);
+  font-weight: 600;
+}
