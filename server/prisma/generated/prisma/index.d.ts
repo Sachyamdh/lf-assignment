@@ -3482,6 +3482,7 @@ export namespace Prisma {
     id: number | null
     firstName: string | null
     lastName: string | null
+    userName: string | null
     email: string | null
     password: string | null
     confirmPassword: string | null
@@ -3495,6 +3496,7 @@ export namespace Prisma {
     id: number | null
     firstName: string | null
     lastName: string | null
+    userName: string | null
     email: string | null
     password: string | null
     confirmPassword: string | null
@@ -3508,6 +3510,7 @@ export namespace Prisma {
     id: number
     firstName: number
     lastName: number
+    userName: number
     email: number
     password: number
     confirmPassword: number
@@ -3531,6 +3534,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    userName?: true
     email?: true
     password?: true
     confirmPassword?: true
@@ -3544,6 +3548,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    userName?: true
     email?: true
     password?: true
     confirmPassword?: true
@@ -3557,6 +3562,7 @@ export namespace Prisma {
     id?: true
     firstName?: true
     lastName?: true
+    userName?: true
     email?: true
     password?: true
     confirmPassword?: true
@@ -3657,6 +3663,7 @@ export namespace Prisma {
     id: number
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -3689,6 +3696,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    userName?: boolean
     email?: boolean
     password?: boolean
     confirmPassword?: boolean
@@ -3705,6 +3713,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    userName?: boolean
     email?: boolean
     password?: boolean
     confirmPassword?: boolean
@@ -3718,6 +3727,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    userName?: boolean
     email?: boolean
     password?: boolean
     confirmPassword?: boolean
@@ -3731,6 +3741,7 @@ export namespace Prisma {
     id?: boolean
     firstName?: boolean
     lastName?: boolean
+    userName?: boolean
     email?: boolean
     password?: boolean
     confirmPassword?: boolean
@@ -3740,7 +3751,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "confirmPassword" | "isVerified" | "token" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "userName" | "email" | "password" | "confirmPassword" | "isVerified" | "token" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notes?: boolean | User$notesArgs<ExtArgs>
     Folder?: boolean | User$FolderArgs<ExtArgs>
@@ -3759,6 +3770,7 @@ export namespace Prisma {
       id: number
       firstName: string
       lastName: string
+      userName: string
       email: string
       password: string
       confirmPassword: string
@@ -4194,6 +4206,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
+    readonly userName: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly confirmPassword: FieldRef<"User", 'String'>
@@ -4700,6 +4713,7 @@ export namespace Prisma {
     id: 'id',
     firstName: 'firstName',
     lastName: 'lastName',
+    userName: 'userName',
     email: 'email',
     password: 'password',
     confirmPassword: 'confirmPassword',
@@ -4974,6 +4988,7 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     firstName?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
+    userName?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     confirmPassword?: StringFilter<"User"> | string
@@ -4989,6 +5004,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    userName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     confirmPassword?: SortOrder
@@ -5002,6 +5018,7 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userName?: string
     email?: string
     token?: string
     AND?: UserWhereInput | UserWhereInput[]
@@ -5016,12 +5033,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     notes?: NoteListRelationFilter
     Folder?: FolderListRelationFilter
-  }, "id" | "email" | "token">
+  }, "id" | "userName" | "email" | "token">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    userName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     confirmPassword?: SortOrder
@@ -5043,6 +5061,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     firstName?: StringWithAggregatesFilter<"User"> | string
     lastName?: StringWithAggregatesFilter<"User"> | string
+    userName?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     confirmPassword?: StringWithAggregatesFilter<"User"> | string
@@ -5197,6 +5216,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -5212,6 +5232,7 @@ export namespace Prisma {
     id?: number
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -5226,6 +5247,7 @@ export namespace Prisma {
   export type UserUpdateInput = {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -5241,6 +5263,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -5256,6 +5279,7 @@ export namespace Prisma {
     id?: number
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -5268,6 +5292,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -5281,6 +5306,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -5565,6 +5591,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    userName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     confirmPassword?: SortOrder
@@ -5582,6 +5609,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    userName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     confirmPassword?: SortOrder
@@ -5595,6 +5623,7 @@ export namespace Prisma {
     id?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
+    userName?: SortOrder
     email?: SortOrder
     password?: SortOrder
     confirmPassword?: SortOrder
@@ -6049,6 +6078,7 @@ export namespace Prisma {
   export type UserCreateWithoutFolderInput = {
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -6063,6 +6093,7 @@ export namespace Prisma {
     id?: number
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -6124,6 +6155,7 @@ export namespace Prisma {
   export type UserUpdateWithoutFolderInput = {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -6138,6 +6170,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -6151,6 +6184,7 @@ export namespace Prisma {
   export type UserCreateWithoutNotesInput = {
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -6165,6 +6199,7 @@ export namespace Prisma {
     id?: number
     firstName: string
     lastName: string
+    userName: string
     email: string
     password: string
     confirmPassword: string
@@ -6214,6 +6249,7 @@ export namespace Prisma {
   export type UserUpdateWithoutNotesInput = {
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
@@ -6228,6 +6264,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     confirmPassword?: StringFieldUpdateOperationsInput | string
