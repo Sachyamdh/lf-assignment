@@ -5,11 +5,14 @@ const YAML = require("yamljs");
 const morgan = require("morgan");
 const swaggerUi = require("swagger-ui-express");
 const swaggerOptions = require("./config/swagger");
-const AppError = require("./middleware/errorHandler");
+const AppError = require("./middleware/AppError");
+const dbConnect = require("./config/db");
 
 //routes import
 const healthRoutes = require("./routes/health.routes");
+dbConnect;
 const authRoutes = require("./routes/auth.routes");
+const errorController = require("./controller/error.controller");
 
 // intializing express
 const app = express();
@@ -33,6 +36,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 //   throw new AppError("Route Error", `Can't find the rpoute`, 404);
 // });
 
-// app.use(e);
+// app.use(errorController);
 
 module.exports = app;

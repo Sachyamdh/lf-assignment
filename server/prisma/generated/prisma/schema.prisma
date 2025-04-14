@@ -1,0 +1,75 @@
+model Folder {
+  id        Int      @id @default(autoincrement())
+  name      String
+  notes     Note[]   @relation("FolderNotes")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+
+  @@unique([name, userId])
+  @@map("folders")
+}
+
+model Note {
+  id               Int              @id @default(autoincrement())
+  title            String
+  content          String
+  slug             String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  author           User             @relation(fields: [authorId], references: [id])
+  authorId         Int
+  systemCategories SystemCategory[]
+  folderId         Int?
+  folder           Folder?          @relation("FolderNotes", fields: [folderId], references: [id])
+  isArchieved      Boolean
+
+  @@map("notes")
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SystemCategory {
+  Personal
+  Education
+  Journal
+  Work
+  Ideas
+  Random
+  Review
+  Notes
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  email           String   @unique
+  password        String
+  confirmPassword String
+  isVerified      Boolean  @default(false)
+  token           String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  notes           Note[]
+  Folder          Folder[]
+
+  @@map("users")
+}

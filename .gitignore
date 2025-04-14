@@ -8,3 +8,5 @@
 /server/build
 /client/build
 
+#prisma client 
+# /server/prisma/generated
