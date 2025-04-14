@@ -16,6 +16,9 @@
   &__header {
     @include mixin.flex(row, space-between, center);
     padding-bottom: 1rem;
+    h2 {
+      font-size: var(--font-size-h2);
+    }
     h6 {
       margin: 0;
     }
@@ -75,12 +78,12 @@
   &__folderHolder {
     @include mixin.flex(column, flex-start, flex-start);
     gap: 0.2rem;
-    max-height: 50vh;
+    max-height: 40vh;
     max-width: 15vw;
     overflow-y: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.2rem;
   }
 
   &__subHeader {
@@ -131,8 +134,6 @@
     align-items: center;
   }
 
-  
-
   // .folder-header {
   //   padding: 0.5rem 1.5rem;
   //   @include mixin.flex(row, space-between, center);
@@ -176,12 +177,46 @@
   // }
 }
 
-.files-sidebar {
-  width: 20vw;
+.filesSidebar {
+  box-sizing: border-box;
+  max-height: 100vh;
   height: 100vh;
-  background-color: var(--color-background-secondary);
-
+  background-color: var(--color-background-highlight);
+  padding: 0.5rem 1rem;
+  width: 20vw;
   @media screen and (max-width: 768px) {
     display: none;
+  }
+  &__noteHolder {
+    @include mixin.flex(column, flex-start, flex-start);
+    max-height: 80vh;
+    overflow-y: scroll;
+    height: 100%;
+    gap: 1.25rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  &__noteCard {
+    @include mixin.flex(column, flex-start, flex-start);
+    gap: 0.625rem;
+    padding: 1.25rem;
+    border-radius: 0.1875rem;
+    background: var(--color-background-secondary);
+    align-self: stretch;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transition: ease-in-out 0.4s;
+    }
+    div {
+      width: 100%;
+      @include mixin.flex(row, flex-start, center);
+      gap: 1rem;
+      span {
+        color: var(--color-foreground-secondary);
+      }
+    }
   }
 }

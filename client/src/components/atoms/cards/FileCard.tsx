@@ -1,20 +1,21 @@
 import React from "react";
-import { MdOutlineStickyNote2 } from "react-icons/md";
 
 interface FileCardProps {
-  id: number;
+  id: number | string;
   title: string;
   className?: string;
+  children?: React.ReactNode;
 }
 
 const FileCard: React.FC<FileCardProps> = ({
   id,
   title,
   className = "file_holder",
+  children,
 }) => {
   return (
-    <div className={className} >
-      <MdOutlineStickyNote2 />
+    <div className={className}>
+      {children}
       {title}
     </div>
   );

@@ -12,7 +12,7 @@ $_color-light: (
 $_color-dark: (
   background-primary: #181818,
   background-secondary: rgba(255, 255, 255, 0.05),
-  background-highlight: #1c1c1c,
+  background-highlight: rgb(28, 28, 28),
   foreground-primary: #fff,
   foreground-secondary: rgba(255, 255, 255, 0.6),
   button-color: rgba(255, 255, 255, 0.05),
@@ -20,22 +20,22 @@ $_color-dark: (
 );
 
 $_font-sizes: (
-  content: clamp(1rem, 0.25vw + 0.85rem, 1.25rem),
-  heading: clamp(1.75rem, 3vw + 0.5rem, 3.5rem),
-  subheading: clamp(1.25rem, 2vw + 0.5rem, 2.5rem),
-  small: clamp(0.875rem, 0.5vw + 0.7rem, 1.125rem),
-  button: clamp(0.9375rem, 0.3vw + 0.8rem, 1.125rem),
-  navigation: clamp(0.9375rem, 0.3vw + 0.8rem, 1.125rem),
-  input: clamp(0.9375rem, 0.3vw + 0.8rem, 1.125rem),
-  label: clamp(0.8125rem, 0.25vw + 0.7rem, 1rem),
-  caption: clamp(0.75rem, 0.2vw + 0.65rem, 0.9375rem),
-  code: clamp(0.875rem, 0.25vw + 0.75rem, 1.0625rem),
-  h1: clamp(2rem, 4vw + 0.5rem, 4rem),
-  h2: clamp(1.5rem, 3vw + 0.5rem, 3rem),
-  h3: clamp(1.25rem, 2vw + 0.5rem, 2.25rem),
-  h4: clamp(1.125rem, 1.5vw + 0.5rem, 1.75rem),
-  h5: clamp(1rem, 1vw + 0.5rem, 1.5rem),
-  h6: clamp(0.875rem, 0.75vw + 0.5rem, 1.25rem),
+  content: clamp(0.875rem, 0.25vw + 0.65rem, 1rem),
+  span: clamp(0.75rem, 0.2vw + 0.5rem, 0.875rem),
+  h1: clamp(1.5rem, 2vw + 0.5rem, 2rem),
+  h2: clamp(1.25rem, 1.5vw + 0.5rem, 1.75rem),
+  h3: clamp(1.125rem, 1.2vw + 0.5rem, 1.5rem),
+  h4: clamp(1rem, 1vw + 0.5rem, 1.25rem),
+  h5: clamp(0.9375rem, 0.75vw + 0.5rem, 1.125rem),
+  h6: clamp(0.875rem, 0.6vw + 0.5rem, 1rem),
+  button: clamp(0.875rem, 0.3vw + 0.6rem, 1.1rem),
+  navigation: clamp(0.875rem, 0.3vw + 0.6rem, 1.1rem),
+  input: clamp(0.875rem, 0.3vw + 0.6rem, 1.1rem),
+  label: clamp(0.75rem, 0.25vw + 0.55rem, 1.1rem),
+  caption: clamp(0.6875rem, 0.2vw + 0.5rem, 0.8125rem),
+  code: clamp(0.8125rem, 0.25vw + 0.6rem, 0.9375rem),
+  subheading: clamp(1rem, 1.25vw + 0.5rem, 1.5rem),
+  small: clamp(0.8125rem, 0.25vw + 0.55rem, 0.9375rem) 
 );
 
 $_spacing: (

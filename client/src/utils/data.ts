@@ -18,6 +18,18 @@ export const recentItems = [
     date: "13/4/2025",
     subInfo: "This is test response ...",
   },
+  {
+    id: 4,
+    title: "Song 2",
+    date: "13/4/2025",
+    subInfo: "This is test response ...",
+  },
+  {
+    id: 5,
+    title: "Song 4 ",
+    date: "13/4/2025",
+    subInfo: "This is test response adfdafd fdafa ...",
+  },
 ];
 export const folders = [
   {
@@ -27,12 +39,10 @@ export const folders = [
   {
     id: 2,
     name: "Personal",
-
   },
   {
     id: 3,
     name: "Travel",
-
   },
   {
     id: 4,
@@ -41,4 +51,13 @@ export const folders = [
   },
 ];
 
-
+export const more = [
+  {
+    id: "deleted-item",
+    title: "Deleted",
+  },
+  {
+    id: "archieved-items",
+    title: "Archieved",
+  },
+];

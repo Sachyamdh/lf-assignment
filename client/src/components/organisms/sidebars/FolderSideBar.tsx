@@ -1,8 +1,8 @@
 "use client";
-import { folders, recentItems } from "@/src/utils/data";
+import { folders, more, recentItems } from "@/src/utils/data";
 import React, { useState } from "react";
 import { ButtonPrimary } from "../../atoms/buttons/ButtonPrimary";
-import { IoMdAdd, IoIosSearch } from "react-icons/io";
+import { IoMdAdd, IoIosSearch, IoMdTrash } from "react-icons/io";
 import styles from "./sidebars.module.scss";
 import Image from "next/image";
 import IconButton from "../../atoms/buttons/IconButtons";
@@ -10,6 +10,9 @@ import clsx from "clsx";
 import { redirect } from "next/navigation";
 import FolderCard from "../../molecules/cards/FolderCard";
 import { CgFolderAdd } from "react-icons/cg";
+import { MdOutlineStickyNote2 } from "react-icons/md";
+import { FaArchive } from "react-icons/fa";
+
 import FileCard from "../../atoms/cards/FileCard";
 
 const FolderSideBar = () => {
@@ -61,7 +64,9 @@ const FolderSideBar = () => {
               className={clsx(styles.sidebar__fileHolder)}
               id={item.id}
               title={item.title}
-            />
+            >
+              <MdOutlineStickyNote2 />
+            </FileCard>
           );
         })}
       </div>
@@ -81,6 +86,24 @@ const FolderSideBar = () => {
               dropdown={item.dropdown}
               fileCardClassName={clsx(styles.sidebar__fileHolder)}
             />
+          );
+        })}
+      </div>
+      <div className={clsx(styles.sidebar__subHeader)}>
+        <h6>More</h6>
+      </div>
+
+      <div className={clsx(styles.sidebar__folderHolder)}>
+        {more.map((item) => {
+          return (
+            <FileCard
+              key={item.id}
+              className={clsx(styles.sidebar__fileHolder)}
+              id={item.id}
+              title={item.title}
+            >
+              {item.id === "deleted-item" ? <IoMdTrash /> : <FaArchive />}
+            </FileCard>
           );
         })}
       </div>
