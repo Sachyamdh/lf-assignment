@@ -6,12 +6,69 @@ body {
   background-color: var(--color-background-primary);
   color: var(--color-foreground-primary);
   font-family: var(--font-source-sans);
+  font-size: var(--font-size-content);
   line-height: var(--line-height-paragraph);
   margin: 0;
   max-width: 100vw;
 }
-button {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-source-sans);
+}
+
+h1,
+.h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-heading);
+  margin: var(--space-md) 0 var(--space-sm);
+}
+
+h2,
+.h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-heading);
+  margin: var(--space-md) 0 var(--space-sm);
+}
+
+h3,
+.h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-heading);
+  margin: var(--space-sm) 0;
+}
+
+h4,
+.h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-heading);
+  margin: var(--space-sm) 0;
+}
+
+h5,
+.h5 {
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-heading);
+  margin: var(--space-sm) 0;
+}
+
+h6,
+.h6 {
+  font-size: var(--font-size-h6);
+  font-weight: 400;
+  line-height: var(--line-height-heading);
+  margin: var(--space-sm) 0;
+}
+
+// Interactive elements
+button,
+.button {
+  font-family: var(--font-source-sans);
+  font-size: var(--font-size-button);
+  line-height: 1;
 }
 
 a {
@@ -24,8 +81,99 @@ a {
   }
 }
 
+// Form elements
+input,
+textarea,
+select {
+  font-family: var(--font-source-sans);
+  font-size: var(--font-size-input);
+}
+
+label,
+.label {
+  font-size: var(--font-size-label);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+// Special text classes
+.nav {
+  font-size: var(--font-size-navigation);
+}
+
+.code,
+code,
+pre {
+  font-family: monospace;
+  font-size: var(--font-size-code);
+}
+
+.caption {
+  font-size: var(--font-size-caption);
+  display: block;
+  color: var(--color-foreground-secondary);
+}
+
 .date {
   font-size: var(--font-size-small);
   color: var(--color-foreground-secondary);
   font-weight: 600;
+}
+
+.u {
+  &-text {
+    &-xs {
+      font-size: var(--font-size-caption);
+    }
+    &-sm {
+      font-size: var(--font-size-small);
+    }
+    &-md {
+      font-size: var(--font-size-content);
+    }
+    &-lg {
+      font-size: var(--font-size-subheading);
+    }
+    &-xl {
+      font-size: var(--font-size-heading);
+    }
+
+    &-light {
+      font-weight: 400;
+    }
+    &-regular {
+      font-weight: 500;
+    }
+    &-bold {
+      font-weight: 600;
+    }
+  }
+
+  &-h1 {
+    @extend .h1;
+  }
+  &-h2 {
+    @extend .h2;
+  }
+  &-h3 {
+    @extend .h3;
+  }
+  &-h4 {
+    @extend .h4;
+  }
+  &-h5 {
+    @extend .h5;
+  }
+  &-h6 {
+    @extend .h6;
+  }
+}
+.ProseMirror-focused {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ProseMirror [contenteditable="true"]:focus {
+  outline: none;
 }

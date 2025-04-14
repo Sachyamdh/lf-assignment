@@ -1,9 +1,5 @@
-import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <main className="bg-background-primary flex justify-center items-center  min-h-[100vh]">
-      {/* <h1 className="text-foreground-secondary ">abcdefghijklmnopqrstuvwxyz</h1> */}
-    </main>
-  );
+export default function RootPage() {
+  redirect("/home");
 }
