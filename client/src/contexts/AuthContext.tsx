@@ -11,7 +11,6 @@ import { usePathname, useRouter } from "next/navigation";
 type User = {
   id: string;
   name: string;
-  email: string;
 } | null;
 
 type AuthContextType = {
@@ -36,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const token = localStorage.getItem("token");
       if (token) {
         //currently setting up the a dummmy user so that we can create teh features for now
-        setUser({ id: "1", name: "John Doe", email: "john@example.com" });
+        setUser({ id: "1", name: "John Doe" });
       }
       setIsLoading(false);
     };
@@ -48,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     // Simulate sign in
     localStorage.setItem("token", "dummy-token");
-    setUser({ id: "1", name: "John Doe", email: "john@example.com" });
+    setUser({ id: "1", name: "JohnD" });
     setIsLoading(false);
     router.push("/notes");
   };
