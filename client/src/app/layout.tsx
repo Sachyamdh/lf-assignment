@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import "@/src/styles/global.scss";
 import { AuthProvider } from "../contexts/AuthContext";
+import QueryProvider from "../contexts/QueryProvider";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
@@ -22,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sourceSans.variable} antialiased m-0 p-0`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
