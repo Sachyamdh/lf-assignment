@@ -1,0 +1,8 @@
+@use "../../styles/animations" as *;
+@use "../../styles/mixins" as mixin;
+
+.notes-layout {
+  @include mixin.flex(row, flex-start, flex-start);
+  max-height: 100vh;
+  max-width: 100vw;
+}
