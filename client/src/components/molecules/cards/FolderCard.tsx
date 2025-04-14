@@ -15,7 +15,8 @@ interface FolderCardProps {
     title: string;
     subInfo?: string;
   }>;
-  onFileClick?: (fileId: number) => void;
+  onFolderClick: (folderId: string) => void;
+  onFileClick: (fileId: string) => void;
 }
 
 const FolderCard: React.FC<FolderCardProps> = ({
@@ -24,6 +25,7 @@ const FolderCard: React.FC<FolderCardProps> = ({
   className,
   name,
   dropdown,
+  onFolderClick,
   onFileClick,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,6 +34,7 @@ const FolderCard: React.FC<FolderCardProps> = ({
     if (dropdown && dropdown.length > 0) {
       setIsExpanded(!isExpanded);
     }
+    onFolderClick(name);
   };
 
   return (
@@ -57,6 +60,10 @@ const FolderCard: React.FC<FolderCardProps> = ({
                 key={item.id}
                 id={item.id}
                 title={item.title}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onFileClick(item.id.toString());
+                }}
               />
             );
           })}

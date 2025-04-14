@@ -5,6 +5,7 @@ interface FileCardProps {
   title: string;
   className?: string;
   children?: React.ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 const FileCard: React.FC<FileCardProps> = ({
@@ -12,9 +13,10 @@ const FileCard: React.FC<FileCardProps> = ({
   title,
   className = "file_holder",
   children,
+  onClick,
 }) => {
   return (
-    <div className={className}>
+    <div className={className} onClick={onClick}>
       {children}
       {title}
     </div>

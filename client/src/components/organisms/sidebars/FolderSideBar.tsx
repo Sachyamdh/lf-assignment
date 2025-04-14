@@ -7,22 +7,36 @@ import styles from "./sidebars.module.scss";
 import Image from "next/image";
 import IconButton from "../../atoms/buttons/IconButtons";
 import clsx from "clsx";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import FolderCard from "../../molecules/cards/FolderCard";
 import { CgFolderAdd } from "react-icons/cg";
 import { MdOutlineStickyNote2 } from "react-icons/md";
 import { FaArchive } from "react-icons/fa";
 
 import FileCard from "../../atoms/cards/FileCard";
+import { useFolderContext } from "@/src/contexts/FolderContext";
 
 const FolderSideBar = () => {
   const [state, setState] = useState<boolean>(false);
+  const router = useRouter();
+  const { setFolder, setFile, resetToHome } = useFolderContext();
 
   const handleCreateNew = async () => {
     setState(!state);
   };
   const handleIconClick = () => {
+    resetToHome();
     redirect("/home");
+  };
+
+  const handleFileClick = async (folderId: string, fileId: string) => {
+    setFile(folderId, fileId);
+    router.push(`notes/${fileId}`);
+  };
+
+  const handleFolderClick = (folderId: string) => {
+    console.log("Clicked", folderId);
+    setFolder(folderId);
   };
 
   return (
@@ -64,6 +78,7 @@ const FolderSideBar = () => {
               className={clsx(styles.sidebar__fileHolder)}
               id={item.id}
               title={item.title}
+              onClick={() => handleFileClick("recent", item.title)}
             >
               <MdOutlineStickyNote2 />
             </FileCard>
@@ -85,6 +100,10 @@ const FolderSideBar = () => {
               name={item.name}
               dropdown={item.dropdown}
               fileCardClassName={clsx(styles.sidebar__fileHolder)}
+              onFolderClick={(folderId) => handleFolderClick(folderId)}
+              onFileClick={(fileId) =>
+                handleFileClick(item.id.toString(), fileId.toString())
+              }
             />
           );
         })}

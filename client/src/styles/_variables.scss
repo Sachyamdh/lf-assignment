@@ -16,7 +16,8 @@ $_color-dark: (
   foreground-primary: #fff,
   foreground-secondary: rgba(255, 255, 255, 0.6),
   button-color: rgba(255, 255, 255, 0.05),
-  accent: #7c3aed,
+  // accent: #7c3aed,
+  accent: linear-gradient(90deg, #7c3aed, #312eb5),
 );
 
 $_font-sizes: (
@@ -35,7 +36,7 @@ $_font-sizes: (
   caption: clamp(0.6875rem, 0.2vw + 0.5rem, 0.8125rem),
   code: clamp(0.8125rem, 0.25vw + 0.6rem, 0.9375rem),
   subheading: clamp(1rem, 1.25vw + 0.5rem, 1.5rem),
-  small: clamp(0.8125rem, 0.25vw + 0.55rem, 0.9375rem) 
+  small: clamp(0.8125rem, 0.25vw + 0.55rem, 0.9375rem),
 );
 
 $_spacing: (

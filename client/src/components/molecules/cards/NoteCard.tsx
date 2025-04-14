@@ -21,10 +21,10 @@ const NoteCard: React.FC<NoteCardProps> = ({
   return (
     <article className={className}>
       <h4>{title}</h4>
-      <div className=".caption">
+      <div>
         {" "}
-        <span>{date}</span>
-        <span>{trimSubInfo(subInfo)} ....</span>
+        <label className=".caption">{date}</label>
+        <label className=".caption">{trimSubInfo(subInfo)} ....</label>
       </div>
     </article>
   );

@@ -168,3 +168,12 @@ pre {
     @extend .h6;
   }
 }
+.ProseMirror-focused {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ProseMirror [contenteditable="true"]:focus {
+  outline: none;
+}

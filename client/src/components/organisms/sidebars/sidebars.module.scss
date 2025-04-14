@@ -84,6 +84,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     margin-bottom: 1.2rem;
+    border-bottom: 1px dotted var(--color-foreground-primary);
   }
 
   &__subHeader {
@@ -111,9 +112,17 @@
     width: 100%;
     padding: 0.5rem 1.5rem;
     cursor: pointer;
+    transition: ease-in-out 0.4s;
+
     &:hover {
       background: var(--color-accent);
+      color: var(--color-foreground-primary);
       transition: ease-in-out 0.4s;
+      @media (prefers-color-scheme: light) {
+        background: var(--color-accent);
+        color: var(--color-background-primary);
+        transition: ease-in-out 0.4s;
+      }
     }
   }
   &__folderTitle {
@@ -214,7 +223,7 @@
       width: 100%;
       @include mixin.flex(row, flex-start, center);
       gap: 1rem;
-      span {
+      label {
         color: var(--color-foreground-secondary);
       }
     }
