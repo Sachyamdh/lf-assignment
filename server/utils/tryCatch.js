@@ -1,4 +1,4 @@
-const AppError = require("../middleware/errorHandler");
+const AppError = require("../middleware/AppError");
 
 exports.tryCatch = (controller) => async (req, res, next) => {
   try {

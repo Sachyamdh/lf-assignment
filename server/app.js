@@ -16,6 +16,10 @@ const errorController = require("./controller/error.controller");
 // intializing express
 const app = express();
 const swaggerDocument = YAML.load("./config/swagger.yaml");
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 app.use(cors());
 app.use(helmet());
@@ -27,11 +31,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1", appRouter);
 
-// app.all("*", async (req, res) => {
-//   console.log(req.originalUrl);
-//   throw new AppError("Route Error", `Can't find the rpoute`, 404);
-// });
+app.all("/api/v1/*name", async (req, res, next) => {
+  console.info(`${req.method} at ${req.url} is not available`);
+  next(
+    new AppError(
+      "No asscosiated routes",
+      `Can't find the ${req.originalUrl}`,
+      404
+    )
+  );
+});
 
-// app.use(errorController);
+app.use(errorController);
 
 module.exports = app;
