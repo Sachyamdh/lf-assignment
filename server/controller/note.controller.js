@@ -41,7 +41,7 @@ const updateNote = async (req, res) => {
 // Delete a note by ID
 const deleteNote = async (req, res) => {
   if (!req.params) throw new AppError("Client Error", "No param", 404);
-  await Note.deleteNote(req?.params);
+  await Note.deleteNote(req?.params.id, req.userId);
 
   res.status(204).json({ status: "success" });
 };

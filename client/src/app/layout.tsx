@@ -3,6 +3,7 @@ import { Source_Sans_3 } from "next/font/google";
 import "@/src/styles/global.scss";
 import { AuthProvider } from "../contexts/AuthContext";
 import QueryProvider from "../contexts/QueryProvider";
+import ProtectedRoute from "../middleware/PrivateRoute";
 
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
@@ -46,9 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sourceSans.variable} antialiased m-0 p-0`}>
-        <QueryProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </QueryProvider>
+        <ProtectedRoute>
+          <QueryProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </QueryProvider>
+        </ProtectedRoute>
       </body>
     </html>
   );

@@ -55,9 +55,10 @@ export const useDeleteNote = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteNote,
+    mutationFn: (slug: string) => deleteNote(slug),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      window.location.href = "/notes";
     },
     onError: (error) => {
       console.error("Error deleting note:", error);

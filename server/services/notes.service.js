@@ -72,7 +72,7 @@ class NoteService {
         updatedAt: true,
       },
       orderBy: {
-        updatedAt: "desc", 
+        updatedAt: "desc",
       },
     });
     return data;
@@ -182,8 +182,6 @@ class NoteService {
   }
 
   async updateNotes(slug, data, userId) {
-    console.log(slug, data);
-
     const updatedNote = await prisma.note.update({
       where: {
         slug_authorId: {
@@ -200,9 +198,14 @@ class NoteService {
     return updatedNote;
   }
 
-  async deleteNote(slug) {
+  async deleteNote(slug, userId) {
     await prisma.note.delete({
-      where: { slug: slug },
+      where: {
+        slug_authorId: {
+          slug,
+          authorId: userId,
+        },
+      },
     });
 
     return null;

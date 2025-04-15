@@ -13,6 +13,8 @@ import { IoMdTrash } from "react-icons/io";
 import { FaArchive } from "react-icons/fa";
 import styles from "@/src/components/organisms/notes/notes.module.scss";
 import clsx from "clsx";
+import { useDeleteNote } from "@/src/hooks/noteHook";
+import { updateNote } from "@/src/services/notesService";
 
 type Props = {
   slug: string;
@@ -22,7 +24,7 @@ type Props = {
 const NoteHeader = ({ title, slug }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
+  const deleteNote = useDeleteNote();
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -32,8 +34,7 @@ const NoteHeader = ({ title, slug }: Props) => {
   };
 
   const handleDelete = () => {
-    // Add delete logic here
-    console.log("Delete clicked");
+    deleteNote.mutate(slug);
     handleMenuClose();
   };
 
