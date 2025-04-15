@@ -108,7 +108,7 @@ paths:
                     type: string
                     example: "Email already in use"
         500:
-          description: | 
+          description: |
             Bad request possible reasons:
             -JWT verification failed
             -Database connection error
@@ -163,7 +163,7 @@ paths:
                   type: string
                   example: "Login successful"
 
-          400:
+        400:
           description: Invalid email or password
           content:
             application/json:
@@ -248,7 +248,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "Could not verify email"                
+                    example: "Could not verify email"
   /api/v1/users:
     get:
       summary: Get all users
@@ -267,3 +267,107 @@ paths:
                 type: string
                 example: "Users retrieved successfully"
               data: userList
+  /api/v1/notes:
+    get:
+      summary: Get all notes
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+          type: string
+      example: "Bearer <your-jwt-token>"
+      description: JWT token for authentication
+      responses:
+        200:
+          description: List of notes
+
+    post:
+      summary: Create a note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+          type: string
+      example: "Bearer <your-jwt-token>"
+      description: JWT token for authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, content]
+              properties:
+                title:
+                  type: string
+                  example: "My First Note"
+                content:
+                  type: string
+                  example: "This is the note content"
+                folderId:
+                  type: integer
+                  example: 1
+      responses:
+        201:
+          description: Note created
+
+  /api/v1/notes/{id}:
+    get:
+      summary: Get a single note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Note details
+    patch:
+      summary: Update note content
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+
+      responses:
+        200:
+          description: Note update
+    delete:
+      summary: Delete a note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Note deleted
