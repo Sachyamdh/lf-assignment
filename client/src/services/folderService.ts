@@ -3,13 +3,15 @@ import { Folder } from "../types/folderType";
 import axiosInstance from "./axiosInstance";
 
 export async function getFolders(): Promise<Folder[]> {
-  const response = await axiosInstance.get(`/folder/get`);
+  const response = await axiosInstance.get(`/folders/get`);
 
-  return response.data;
+  return response.data.data;
 }
 
-export async function createFolder(folderData:{name: string}): Promise<Folder> {
-    const response = await axiosInstance.post('/folders/create',folderData)
+export async function createFolder(folderData: {
+  name: string;
+}): Promise<Folder> {
+  const response = await axiosInstance.post("/folders/create", folderData);
 
   return response.data;
 }

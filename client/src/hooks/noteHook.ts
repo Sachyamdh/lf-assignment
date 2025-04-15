@@ -7,6 +7,7 @@ import {
   deleteNote,
 } from "@/src/services/notesService";
 
+
 // React Query hook to get all notes
 export const useNotes = () => {
   return useQuery({ queryKey: ["notes"], queryFn: getNotes });

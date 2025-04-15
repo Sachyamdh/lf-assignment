@@ -1,5 +1,5 @@
 "use client";
-import { folders, more, recentItems } from "@/src/utils/data";
+import { FOLDERS, more, recentItems } from "@/src/utils/data";
 import React, { useState } from "react";
 import { ButtonPrimary } from "../../atoms/buttons/ButtonPrimary";
 import { IoMdAdd, IoIosSearch, IoMdTrash } from "react-icons/io";
@@ -13,7 +13,7 @@ import { CgFolderAdd } from "react-icons/cg";
 import { MdOutlineStickyNote2 } from "react-icons/md";
 import { FaArchive } from "react-icons/fa";
 import { useCreateNote } from "@/src/hooks/noteHook";
-import { useCreateFolder } from "@/src/hooks/folderHook";
+import { useCreateFolder, useFolders } from "@/src/hooks/folderHook";
 import FileCard from "../../atoms/cards/FileCard";
 import { useFolderContext } from "@/src/contexts/FolderContext";
 import CreateFolderForm from "../../molecules/forms/FolderForm";
@@ -25,7 +25,9 @@ const FolderSideBar = () => {
   const { mutate: createFolder } = useCreateFolder();
   const [showFolderForm, setShowFolderForm] = useState(false);
   const [showNoteForm, setShowNoteForm] = useState(false);
+  const { data: folders = [], isLoading } = useFolders();
 
+  if (isLoading) return <p>Loading...</p>;
   const handleCreateNew = () => {
     setShowNoteForm(!showNoteForm);
   };
@@ -121,7 +123,7 @@ const FolderSideBar = () => {
                 key={item.id}
                 id={item.id}
                 name={item.name}
-                dropdown={item.dropdown}
+                dropdown={item.notes}
                 fileCardClassName={clsx(styles.sidebar__fileHolder)}
                 onFolderClick={(folderId) => handleFolderClick(folderId)}
                 onFileClick={(fileId) =>

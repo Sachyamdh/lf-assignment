@@ -1,10 +1,9 @@
 import FolderSideBar from "@/src/components/organisms/sidebars/FolderSideBar";
 
-import clsx from "clsx";
 import { FilesBar } from "@/src/components/organisms/sidebars";
+import { useFolders } from "@/src/hooks/folderHook";
 
 export default function Page() {
-  console.log(process.env.API_URL);
   return (
     <>
       <FolderSideBar />

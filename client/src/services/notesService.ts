@@ -1,24 +1,25 @@
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
+import { NoteResponse } from "../types/noteType";
 
-export const getNotes = async () => {
+export async function getNotes(): Promise<NoteResponse[]> {
   const response = await axiosInstance.get("/notes/get");
-  return response.data;
-};
+  return response.data.data;
+}
 
 export const getNotesBySlug = async (slug: string) => {
   const response = await axiosInstance.get(`/notes/get/${slug}`);
   return response.data;
 };
 
-export const createNote = async (newNote: {
+export async function createNote(newNote: {
   title: string;
   content: string;
   folderId: string;
-}) => {
+}) {
   const response = await axiosInstance.post("/notes/create", newNote);
   return response.data;
-};
+}
 
 export const deleteNote = async (id: string) => {
   const response = await axios.delete(`/delete/${id}`);

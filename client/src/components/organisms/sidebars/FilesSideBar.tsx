@@ -6,12 +6,13 @@ import { recentItems } from "@/src/utils/data";
 import NoteCard from "../../molecules/cards/NoteCard";
 import { useFolderContext } from "@/src/contexts/FolderContext";
 import { useRouter } from "next/navigation";
+import { useNotes } from "@/src/hooks/noteHook";
 
 const FilesSideBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { setFile, folderState } = useFolderContext();
   const router = useRouter();
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -26,6 +27,10 @@ const FilesSideBar = () => {
   if (isMobile) {
     return null;
   }
+  const { data: Notes = [], isLoading } = useNotes();
+  if (isLoading) return <p>Loading...</p>;
+  console.log(Notes);
+
   const handleFileSelect = async (fileId: string) => {
     router.push(`notes/${fileId}`);
   };
@@ -37,15 +42,15 @@ const FilesSideBar = () => {
         {folderState.currentFolder}{" "}
       </h2>
       <div className={clsx(styles.filesSidebar__noteHolder)}>
-        {recentItems.map((item) => {
+        {Notes.map((item) => {
           return (
             <NoteCard
-              key={item.id}
+              key={item.slug}
               className={clsx(styles.filesSidebar__noteCard)}
-              id={item.id}
+              id={item.slug}
               title={item.title}
-              date={item.date}
-              subInfo={item.subInfo}
+              date={item.updatedAt}
+              subInfo={item.content}
             />
           );
         })}

@@ -1,5 +1,7 @@
+import { formatDate } from "@/src/utils/dateformatter";
+
 interface NoteCardProps {
-  id: number;
+  id: string;
   title: String;
   date?: string;
   subInfo?: string;
@@ -23,7 +25,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
       <h4>{title}</h4>
       <div>
         {" "}
-        <label className=".caption">{date}</label>
+        <label className=".caption">{formatDate(date)}</label>
         <label className=".caption">{trimSubInfo(subInfo)} ....</label>
       </div>
     </article>

@@ -11,15 +11,14 @@ interface FolderCardProps {
   className?: string;
   name: string;
   dropdown?: Array<{
-    id: number;
     title: string;
-    subInfo?: string;
+    slug: string;
   }>;
   onFolderClick: (folderId: string) => void;
   onFileClick: (fileId: string) => void;
 }
 
-const FolderCard: React.FC<FolderCardProps> = ({
+const FolderCard: React.FC<FolderCardProps> =  ({
   id,
   fileCardClassName,
   className,
@@ -57,12 +56,12 @@ const FolderCard: React.FC<FolderCardProps> = ({
             return (
               <FileCard
                 className={fileCardClassName}
-                key={item.id}
-                id={item.id}
+                key={item.slug}
+                id={item.slug}
                 title={item.title}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onFileClick(item.id.toString());
+                  onFileClick(item.slug);
                 }}
               />
             );

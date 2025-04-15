@@ -31,7 +31,7 @@ export const recentItems = [
     subInfo: "This is test response adfdafd fdafa ...",
   },
 ];
-export const folders = [
+export const FOLDERS = [
   {
     id: 1,
     name: "Work",
