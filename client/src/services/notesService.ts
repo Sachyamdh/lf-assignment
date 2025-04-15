@@ -32,3 +32,8 @@ export const updateNote = async (
 ) => {
   const response = await axios.patch(`/update/${id}`, updateNote);
 };
+
+export const getNoteById = async (slug: string) => {
+  const response = await axiosInstance.get(`/notes/get/${slug}`);
+  return response.data.data;
+};

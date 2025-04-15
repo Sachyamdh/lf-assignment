@@ -45,7 +45,7 @@ const NoteHeader = ({ title, slug }: Props) => {
 
   return (
     <div className={clsx(styles.header)}>
-      <h1 className=".h1">{slug}</h1>
+      <h1 className=".h1">{title}</h1>
       <IconButton onClick={handleMenuOpen} aria-label="more options">
         <MoreVertIcon style={{ color: "white" }} />
       </IconButton>

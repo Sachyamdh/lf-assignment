@@ -5,8 +5,8 @@ import {
   createNote,
   updateNote,
   deleteNote,
+  getNoteById,
 } from "@/src/services/notesService";
-
 
 // React Query hook to get all notes
 export const useNotes = () => {
@@ -57,5 +57,13 @@ export const useDeleteNote = () => {
     onError: (error) => {
       console.error("Error deleting note:", error);
     },
+  });
+};
+
+export const useNoteById = (slug: string) => {
+  return useQuery({
+    queryKey: ["note", slug],
+    queryFn: () => getNoteById(slug),
+    enabled: !!slug,
   });
 };

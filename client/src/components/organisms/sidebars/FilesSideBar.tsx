@@ -29,7 +29,6 @@ const FilesSideBar = () => {
   }
   const { data: Notes = [], isLoading } = useNotes();
   if (isLoading) return <p>Loading...</p>;
-  console.log(Notes);
 
   const handleFileSelect = async (fileId: string) => {
     router.push(`notes/${fileId}`);

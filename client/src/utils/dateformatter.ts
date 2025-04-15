@@ -3,7 +3,7 @@ export function formatDate(dateString?: string): string {
 
   const date = new Date(dateString);
 
-  if (isNaN(date.getTime())) return "Invalid Date"; // In case the date is not valid
+  if (isNaN(date.getTime())) return "Invalid Date"; 
 
   return new Intl.DateTimeFormat("en-US", {
     dateStyle: "medium", 
