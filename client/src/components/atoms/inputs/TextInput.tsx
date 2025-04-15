@@ -21,26 +21,36 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         sx={{
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "white",
+              borderColor: "var(--color-foreground-primary)",
             },
             "&:hover fieldset": {
-              borderColor: "white",
+              borderColor: "var(--color-foreground-primary)",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "white",
+              borderColor: "var(--color-foreground-primary)",
             },
             "& input": {
-              color: "white",
+              color: "var(--color-foreground-primary)",
+            },
+            " & textarea": {
+              color: "var(--color-foreground-primary)",
             },
           },
+
           "& .MuiInputLabel-root": {
-            color: "white",
+            color: "var(--color-foreground-primary)",
+            "&.Mui-focused": {
+              color: "var(--focus-text-color)",
+            },
           },
           "& .MuiInputLabel-root.Mui-focused": {
-            color: "white",
+            color: "var(--color-foreground-primary)",
+            "&.Mui-focused": {
+              color: "var(--focus-text-color)",
+            },
           },
           "& .MuiFormHelperText-root": {
-            color: "white",
+            color: "var(--color-foreground-primary)",
           },
           "@media (prefers-color-scheme: light)": {
             "& .MuiOutlinedInput-root": {

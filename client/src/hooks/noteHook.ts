@@ -19,6 +19,10 @@ export const useCreateNote = () => {
 
   return useMutation({
     mutationFn: createNote,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      window.location.reload();
+    },
     onError: (error) => {
       console.error("Notes post failed", error);
     },

@@ -12,7 +12,7 @@ const NoteMeta = ({ date, folder = "test", className }: Props) => (
   <div className={className}>
     <h6>
       <FaRegCalendarAlt />
-      {date} 12/13/14
+      {date}
     </h6>
 
     <label>

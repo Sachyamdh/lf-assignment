@@ -36,7 +36,6 @@ const NoteContainer = ({ slug }: { slug: string }) => {
     const interval = setInterval(() => {
       if (!editor) return;
       const currentContent = editor.getHTML();
-      console.log("effect", note.slug);
       if (currentContent !== lastContentRef.current) {
         updateNote.mutate({
           slug: note.slug,
@@ -49,7 +48,7 @@ const NoteContainer = ({ slug }: { slug: string }) => {
         lastContentRef.current = currentContent;
         setLastSaved(Date.now());
       }
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [editor, note]);

@@ -3,7 +3,7 @@
 .form {
   @include mixin.flex(column, flex-start, center);
   position: absolute;
-  top: 30%;
+  top: 20%;
   right: 40%;
   width: 20vw;
   padding: 2rem;
@@ -11,6 +11,7 @@
   background-color: black;
   z-index: 999;
   border-radius: 2rem;
+  gap: 1rem;
   animation: fadeIn 0.4s forwards;
 }
 .button {

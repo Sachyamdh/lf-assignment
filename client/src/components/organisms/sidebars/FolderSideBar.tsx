@@ -17,6 +17,7 @@ import { useCreateFolder, useFolders } from "@/src/hooks/folderHook";
 import FileCard from "../../atoms/cards/FileCard";
 import { useFolderContext } from "@/src/contexts/FolderContext";
 import CreateFolderForm from "../../molecules/forms/FolderForm";
+import CreateNoteForm from "../../molecules/forms/CreateNoteForm";
 
 const FolderSideBar = () => {
   const router = useRouter();
@@ -153,7 +154,7 @@ const FolderSideBar = () => {
         </div>
       </aside>
       {showFolderForm && <CreateFolderForm onSubmit={handleFolderSubmit} />}
-      {/* {showNoteForm && <CreateNoteForm onSubmit={handleNoteSubmit} />} */}
+      {showNoteForm && <CreateNoteForm />}
     </>
   );
 };

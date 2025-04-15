@@ -15,7 +15,17 @@ export const getNotesBySlug = async (slug: string) => {
 export async function createNote(newNote: {
   title: string;
   content: string;
-  folderId: string;
+  folderId: number | null;
+  systemCategories: (
+    | "Personal"
+    | "Education"
+    | "Journal"
+    | "Work"
+    | "Ideas"
+    | "Random"
+    | "Review"
+    | "Notes"
+  )[];
 }) {
   const response = await axiosInstance.post("/notes/create", newNote);
   return response.data;

@@ -71,6 +71,9 @@ class NoteService {
         slug: true,
         updatedAt: true,
       },
+      orderBy: {
+        updatedAt: "desc", 
+      },
     });
     return data;
   }
@@ -155,7 +158,6 @@ class NoteService {
   }
 
   async getNotesBySlug(slug, userId) {
-    console.log(slug, userId);
     const data = await prisma.note.findFirst({
       where: {
         slug,
