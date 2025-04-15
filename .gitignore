@@ -1,0 +1,13 @@
+#env files
+.env
+ERD.png
+
+#node modules
+/server/node_modules
+
+#build files
+/server/build
+/client/build
+
+#prisma client 
+# /server/prisma/generated

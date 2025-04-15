@@ -1,0 +1,373 @@
+openapi: 3.0.4
+info:
+  title: NoteFY API
+  description: API documentation for the Note App
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+paths:
+  /api/v1/health-check:
+    get:
+      summary: Health check
+      description: Check if the API is running
+      tags:
+        - Health
+      responses:
+        "200":
+          description: API is running
+        "500":
+          description: Internal server error
+  /api/auth/signup:
+    post:
+      summary: Register a new user account
+      tags:
+        - Authentication
+      description: Create a new user account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - userName
+                - email
+                - password
+                - confirmPassword
+              properties:
+                firstName:
+                  type: string
+                  example: Alex
+                  minLength: 3
+                  maxLength: 20
+                lastName:
+                  type: string
+                  example: Wozniak
+                  minLength: 3
+                  maxLength: 20
+                userName:
+                  type: string
+                  example: AlexWo
+                  minLength: 3
+                  maxLength: 20
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  minLength: 6
+                  example: "Str0ngP@ssword"
+                confirmPassword:
+                  type: string
+                  format: password
+                  minLength: 6
+                  example: "Str0ngP@ssword"
+      responses:
+        202:
+          description: User created successfully waiting for email verification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: Check inbox for email verification
+
+        400:
+          description: |
+            Bad request. Possible reasons:
+            - Missing required fields
+            - Invalid email format
+            - Password too short
+            - Passwords do not match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid data format"
+        409:
+          description: Email already registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Email already in use"
+        500:
+          description: |
+            Bad request possible reasons:
+            -JWT verification failed
+            -Database connection error
+            -Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Could not create user"
+  /api/auth/login::
+    post:
+      summary: Login to an existing user account
+      tags:
+        - Authentication
+      description: Authenticate a user and return a JWT token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: "Str0ngP@ssword"
+      response:
+        200:
+          description: User logged in successfully
+          headers:
+            Authorization:
+              description: Bearer token for authentication
+              schema:
+              type: string
+              example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            content:
+            application/json:
+              schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Login successful"
+
+        400:
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid email or password"
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User not found"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Could not log in"
+  /api/auth/verify-email:
+    get:
+      summary: Verify user email
+      tags:
+        - Authentication
+      description: Verify a user's email address using a token that is sent to their email as a url
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+          type: string
+          example: http://localhost:8080/api/auth/verify-email?token=abc123
+          description: The token sent to the user's email for verification
+      schema:
+        type: string
+      responses:
+        201:
+          description: Email verified successfully
+          headers:
+            Authorization:
+              description: Bearer token for authentication
+              schema:
+              type: string
+              example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  message:
+                    type: string
+                    example: "Email verified successfully"
+        400:
+          description: Invalid or expired token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid or expired token"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Could not verify email"
+  /api/v1/users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      description: Retrieve a list of all active users
+      response:
+        200:
+          description: List of users retrieved successfully
+          content:
+          application/json:
+            schema:
+            type: object
+            prorperties:
+              message:
+                type: string
+                example: "Users retrieved successfully"
+              data: userList
+  /api/v1/notes:
+    get:
+      summary: Get all notes
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+          type: string
+      example: "Bearer <your-jwt-token>"
+      description: JWT token for authentication
+      responses:
+        200:
+          description: List of notes
+
+    post:
+      summary: Create a note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+          type: string
+      example: "Bearer <your-jwt-token>"
+      description: JWT token for authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, content]
+              properties:
+                title:
+                  type: string
+                  example: "My First Note"
+                content:
+                  type: string
+                  example: "This is the note content"
+                folderId:
+                  type: integer
+                  example: 1
+      responses:
+        201:
+          description: Note created
+
+  /api/v1/notes/{id}:
+    get:
+      summary: Get a single note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Note details
+    patch:
+      summary: Update note content
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+
+      responses:
+        200:
+          description: Note update
+    delete:
+      summary: Delete a note
+      tags: [Notes]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Note deleted

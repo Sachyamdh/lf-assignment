@@ -1,0 +1,75 @@
+@use "variables" as *;
+
+:root {
+  --font-size-content: #{map-get($font-sizes, content)};
+  --font-size-heading: #{map-get($font-sizes, heading)};
+  --font-size-subheading: #{map-get($font-sizes, subheading)};
+  --font-size-small: #{map-get($font-sizes, small)};
+  --line-height-heading: #{map-get($line-heights, heading)};
+  --line-height-paragraph: #{map-get($line-heights, paragraph)};
+
+  // Add the font family variable
+  font-family: var(--font-source-sans);
+}
+
+// Type Scale - Updated to use Source Sans 3 exclusively
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-source-sans);
+  font-weight: 600;
+  color: var(--color-foreground-primary);
+  margin: var(--space-sm) 0;
+  line-height: var(--line-height-heading);
+}
+
+h1 {
+  font-size: var(--font-size-heading);
+  margin-bottom: var(--space-md);
+}
+
+h2 {
+  font-size: var(--font-size-subheading);
+  margin-bottom: var(--space-sm);
+}
+
+h3 {
+  font-size: var(--font-size-content);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+p,
+li {
+  font-family: var(--font-source-sans);
+  font-size: var(--font-size-content);
+  line-height: var(--line-height-paragraph);
+  color: var(--color-foreground-primary);
+  margin-bottom: var(--space-sm);
+  max-width: 65ch;
+}
+
+// Utility Classes
+.u {
+  &-text-center {
+    text-align: center;
+  }
+  &-text-uppercase {
+    text-transform: uppercase;
+  }
+  &-text-bold {
+    font-weight: 700 !important;
+  }
+  &-text-light {
+    font-weight: 400 !important;
+  }
+  &-text-secondary {
+    color: var(--color-foreground-secondary);
+  }
+}
+
+

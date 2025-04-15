@@ -1,0 +1,13 @@
+model Folder {
+  id        Int      @id @default(autoincrement())
+  name      String
+  notes     Note[]   @relation("FolderNotes")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id],onDelete:Cascade)
+
+  @@unique([name, userId])
+  @@map("folders")
+}
