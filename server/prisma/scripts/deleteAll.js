@@ -11,5 +11,16 @@ async function deleteAllUsers() {
     await prisma.$disconnect();
   }
 }
+async function deleteAllFoldersAndNotes() {
+  try {
+    const deletedNotes = await prisma.note.deleteMany();
+    console.log(`✅ Deleted ${deletedNotes.count} note(s).`);
 
-deleteAllUsers();
+    const deletedFolders = await prisma.folder.deleteMany();
+    console.log(`✅ Deleted ${deletedFolders.count} folder(s).`);
+  } catch (error) {
+    console.error("❌ Failed to delete folders and notes:", error);
+  }
+}
+
+deleteAllFoldersAndNotes();

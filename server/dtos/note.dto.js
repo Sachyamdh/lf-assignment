@@ -11,7 +11,7 @@ const createNoteSchema = z.object({
 
   folderId: z.number().int().optional(),
   isArchived: z.boolean().optional().default(false),
-  systemCategories: z.array(z.string()),
+  systemCategories: z.array(z.string()).nonempty(),
 });
 
 const updateNoteSchema = z.object({
@@ -25,29 +25,10 @@ const updateNoteSchema = z.object({
 
   folderId: z.number().int().optional(),
   isArchived: z.boolean().optional(),
-  systemCategories: z.array(z.string()),
+  systemCategories: z.array(z.string()).nonempty().optional(),
 });
 
-const validateNote = (schema) => (req, res, next) => {
-  try {
-    const validatedData = schema.parse(req.body);
-    req.validatedData = validatedData;
-    next();
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({
-        success: false,
-        errors: error.errors.map((err) => ({
-          field: err.path.join("."),
-          message: err.message,
-        })),
-      });
-    }
-    res.status(500).json({ success: false, error: "Server error" });
-  }
-};
-
 module.exports = {
-  validateCreateNote: validateNote(createNoteSchema),
-  validateUpdateNote: validateNote(updateNoteSchema),
+  createNoteSchema,
+  updateNoteSchema,
 };

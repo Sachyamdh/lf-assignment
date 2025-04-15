@@ -1,19 +1,22 @@
 const AppError = require("../middleware/AppError");
-// const Note = require("../models/note.model");
-// const Note = "test";
+const Note = require("../services/notes.service");
+
 // Get all notes
 const getAllNotes = async (req, res) => {
-  console.log(req.userId);
-  res.status(200).json(notes);
+  const userId = req.userId;
+  const note = await Note.getAllNotes(req.params.id, req.userId);
+  if (!note) {
+    throw new AppError("No Notes found", "Notes not found", 404);
+  }
+  res.status(200).json({ status: "success", data: note });
 };
 
 // Get a single note by ID
 const getNoteById = async (req, res) => {
   try {
-    const note = req.params.id;
     const userId = req.userId;
-    console.log(note, userId);
-    // const note = await Note.findById(req.params.id);
+    console.log("here");
+    const note = await Note.getNotesBySlug(req.params.id, req.userId);
     if (!note) {
       throw new AppError("No Notes found", "Notes not found", 404);
     }
@@ -25,41 +28,26 @@ const getNoteById = async (req, res) => {
 
 // Create a new note
 const createNote = async (req, res) => {
-  try {
-    // const newNote = new Note(req.body);
-    // const savedNote = await newNote.save();
-    res.status(201).json(savedNote);
-  } catch (error) {
-    res.status(500).json({ message: "Error creating note", error });
-  }
+  const note = await Note.createNote(req.userId, req?.body);
+  if (!note) throw new AppError("Server Error", "Failed to create note", 500);
+  res.status(201).json({ status: "success", data: note });
 };
 
 // Update a note by ID
 const updateNote = async (req, res) => {
-  try {
-    // const updatedNote = await Note.findByIdAndUpdate(req.params.id, req.body, {
-    // new: true,
-    // });
-    if (!updatedNote) {
-      return res.status(404).json({ message: "Note not found" });
-    }
-    res.status(200).json(updatedNote);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating note", error });
-  }
+  const data = await Note.updateNotes(req?.body);
+  if (!data)
+    throw new AppError("Failed to update note", "Failed to Update note", 503);
+
+  res.status(202).json({ staus: "success", data: data });
 };
 
 // Delete a note by ID
 const deleteNote = async (req, res) => {
-  try {
-    // const deletedNote = await Note.findByIdAndDelete(req.params.id);
-    if (!deletedNote) {
-      return res.status(404).json({ message: "Note not found" });
-    }
-    res.status(200).json({ message: "Note deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting note", error });
-  }
+  if (!req.params) throw new AppError("Client Error", "No param", 404);
+  await Note.deleteNote(req?.params);
+
+  res.status(204).json({ status: "success" });
 };
 
 module.exports = {

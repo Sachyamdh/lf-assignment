@@ -6,7 +6,7 @@ model Folder {
   updatedAt DateTime @updatedAt
 
   userId Int
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([name, userId])
   @@map("folders")
@@ -19,13 +19,14 @@ model Note {
   slug             String
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
-  author           User             @relation(fields: [authorId], references: [id])
+  author           User             @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId         Int
   systemCategories SystemCategory[]
   folderId         Int?
-  folder           Folder?          @relation("FolderNotes", fields: [folderId], references: [id])
+  folder           Folder?          @relation("FolderNotes", fields: [folderId], references: [id], onDelete: SetNull)
   isArchieved      Boolean
 
+  @@unique([slug, authorId])
   @@map("notes")
 }
 

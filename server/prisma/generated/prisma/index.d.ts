@@ -4931,6 +4931,7 @@ export namespace Prisma {
 
   export type NoteWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    slug_authorId?: NoteSlugAuthorIdCompoundUniqueInput
     AND?: NoteWhereInput | NoteWhereInput[]
     OR?: NoteWhereInput[]
     NOT?: NoteWhereInput | NoteWhereInput[]
@@ -4945,7 +4946,7 @@ export namespace Prisma {
     isArchieved?: BoolFilter<"Note"> | boolean
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     folder?: XOR<FolderNullableScalarRelationFilter, FolderWhereInput> | null
-  }, "id">
+  }, "id" | "slug_authorId">
 
   export type NoteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -5487,6 +5488,11 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type NoteSlugAuthorIdCompoundUniqueInput = {
+    slug: string
+    authorId: number
   }
 
   export type NoteCountOrderByAggregateInput = {

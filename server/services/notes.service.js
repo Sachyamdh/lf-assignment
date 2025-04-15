@@ -1,4 +1,5 @@
 const slugify = require("slugify");
+const { v4: uuidv4 } = require("uuid");
 const { prisma } = require("../config/db");
 const AppError = require("../middleware/AppError");
 
@@ -31,7 +32,9 @@ class NoteService {
       );
     }
 
-    const slug = slugify(title, { lower: true, strict: true });
+    let slug = slugify(title, { lower: true, strict: true });
+    //creatign a  unique slug for handling unique value
+    slug = `slug-${uuidv4().slice(0, 8)}`;
     const note = await prisma.note.create({
       data: {
         title,
@@ -42,16 +45,17 @@ class NoteService {
         folderId,
         isArchieved: false,
       },
-      include: {
-        author: {
+      select: {
+        title: true,
+        content: true,
+        folderId: true,
+        updatedAt: true,
+        folder: {
           select: {
             id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
+            name: true,
           },
         },
-        folder: true,
       },
     });
     return note;
@@ -60,7 +64,12 @@ class NoteService {
   async getAllNotes(userId) {
     const data = await prisma.note.findMany({
       where: { userId: userId },
-      select,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        updatedAt: true,
+      },
     });
     return data;
   }
@@ -144,18 +153,49 @@ class NoteService {
     );
   }
 
-  async getNotesBySlug(userId, slug) {
+  async getNotesBySlug(slug, userId) {
+    console.log(slug, userId);
     const data = await prisma.note.findFirst({
-      where: { authorId: userId, slug: slug },
-      select: {
+      where: {
         slug,
-        content,
-        folder,
-        folderId,
-        updatedAt,
+        authorId: userId,
+      },
+      select: {
+        slug: true,
+        title: true,
+        content: true,
+        folderId: true,
+        updatedAt: true,
+        folder: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     });
 
     return data;
   }
+
+  async updateNotes(userId, slug, data) {
+    const updatedNote = await prisma.note.update({
+      where: { slug: slug },
+      data: {
+        ...data,
+      },
+    });
+
+    return updatedNote;
+  }
+
+  async deleteNote(slug) {
+    await prisma.note.delete({
+      where: { slug: slug },
+    });
+
+    return null;
+  }
 }
+
+module.exports = new NoteService();

@@ -2,6 +2,7 @@ const AppError = require("../middleware/AppError");
 
 // Development error handler
 const sendErrorDev = (err, res) => {
+  console.error(err);
   res.status(err.statusCode).json({
     status: err.status,
     error: err,

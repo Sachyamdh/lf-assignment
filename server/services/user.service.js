@@ -123,7 +123,7 @@ class UserService {
           throw new AppError("Server Error", "Email not sent", 500);
         }
 
-        //setTimeout to delete the user if not verified in 10 minutes
+        //setting time out to 5 minutes to delete the user if not verified
         // This is a simple way to handle unverified users, but in a production environment,
         //  might use a background job or cron job to handle this
         setTimeout(async () => {
@@ -134,7 +134,7 @@ class UserService {
             await prisma.user.delete({ where: { id: user.id } });
             console.info(`Deleted unverified user: ${user.email}`);
           }
-        }, 600000);
+        }, 500000);
 
         return user;
       });
