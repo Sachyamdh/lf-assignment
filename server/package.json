@@ -12,7 +12,8 @@
   "private": false,
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "delete-users": "node prisma/scripts/deleteAll.js"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",

@@ -21,7 +21,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors());
+app.use(
+  cors({ origin: "http://localhost:3000",credentials: true, exposedHeaders: ["Authorization"] })
+);
 app.use(helmet());
 process.env.NODE_ENV === "development" && app.use(morgan("dev"));
 app.use(express.json());

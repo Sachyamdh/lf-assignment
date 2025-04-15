@@ -1,5 +1,4 @@
-import clsx from "clsx";
-import styles from "./notes.module.scss";
+import { Navbar } from "@/src/components/organisms/navbars";
 import { FolderProvider } from "@/src/contexts/FolderContext";
 
 export default function NotesLayout({
@@ -9,7 +8,11 @@ export default function NotesLayout({
 }>) {
   return (
     <FolderProvider>
-      <main className={clsx(styles["notes-layout"])}>{children}</main>
+      <main>
+        {" "}
+        <Navbar />
+        {children}
+      </main>
     </FolderProvider>
   );
 }

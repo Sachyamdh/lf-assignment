@@ -111,7 +111,7 @@ class UserService {
           header: "Verify your email",
           subheader: "Please verify your email address",
           bodyText: "Click the button below to verify your email address",
-          verificationUrl: `${this.url}/api/auth/veriry-user?token=${verificationToken}`,
+          verificationUrl: `${this.url}/api/v1/auth/verify-user?token=${verificationToken}`,
         };
         const mailSent = await sendVerificationEmail(
           email,
@@ -148,7 +148,7 @@ class UserService {
   async verifyEmail(token) {
     try {
       const user = await prisma.user.findUnique({
-        where: { token },
+        where: { token: token },
         select: {
           id: true,
           email: true,
@@ -178,7 +178,6 @@ class UserService {
           userName: true,
         },
       });
-
       return data;
     } catch (error) {
       console.log("Error", error);

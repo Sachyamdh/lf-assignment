@@ -18,11 +18,11 @@ const verifyEmail = async (req, res) => {
     return res.status(400).json({ message: "Invalid token" });
   }
   // Verify the token and update the user's isVerified status
+
   const user = await User.verifyEmail(token);
   if (!user) {
     return res.status(400).json({ message: "Invalid or expired token" });
   }
-
   // Send a success response
   const JWTTOKEN = await jwtToken(user.id, user.userName);
   if (!JWTTOKEN) {
@@ -30,10 +30,8 @@ const verifyEmail = async (req, res) => {
   }
 
   res.setHeader("Authorization", `Bearer ${JWTTOKEN}`);
-  res.status(201).json({
-    status: "success",
-    message: "Email verified successfully",
-  });
+  res.writeHead(302, { Location: "http://localhost:3000/home" });
+  res.end();
 };
 
 const signIn = async (req, res) => {

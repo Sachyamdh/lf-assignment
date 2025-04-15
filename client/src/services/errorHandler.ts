@@ -2,6 +2,7 @@ import axios from "axios";
 
 const handleError = (error: any) => {
   if (axios.isAxiosError(error)) {
+    console.log(error);
     if (error.response) {
       const status = error.response.status;
 

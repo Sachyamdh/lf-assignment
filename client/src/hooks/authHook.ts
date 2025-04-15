@@ -35,10 +35,9 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: register,
-    onSuccess: (user) => {
-      localStorage.setItem("token", user.token);
-      router.push("/home");
-    },
+    onSuccess:((response)=>{
+        return response.message
+    }),
     onError: (error) => {
       console.error("Registration failed:", error);
     },

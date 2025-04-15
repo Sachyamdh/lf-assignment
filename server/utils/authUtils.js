@@ -26,9 +26,9 @@ const jwtToken = async (userId, userName) => {
 
 //function to verifuy the token, whether the token is valid or not
 const jwtVerify = async (token) => {
-  return jwtVerify(token, process.env.JWT_KEY, (err) => {
+  return jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
     if (err) {
-      throw new AppError(err.stack, err.message, err.status);
+      throw new AppError(err.stack, err.message, err.status || 401);
     }
     return true;
   });

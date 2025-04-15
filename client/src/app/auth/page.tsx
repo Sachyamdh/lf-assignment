@@ -1,13 +1,21 @@
+"use client";
+import React, { useState } from "react";
+import LoginForm from "@/src/components/molecules/forms/SignIn";
+import RegisterForm from "@/src/components/molecules/forms/SignUp";
+import styles from "./auth.module.scss";
 
+const Page = () => {
+  const [isLogin, setIsLogin] = useState(true);
 
-
-
-export default function Home() {
   return (
-    <main className="bg-background-primary flex justify-center items-center  min-h-[100vh]">
-      <h1 className="text-foreground-secondary ">abcdefghijklmnopqrstuvwxyz</h1>
-    </main>
+    <div className={styles.authPage}>
+      {isLogin ? (
+        <LoginForm onSwitch={() => setIsLogin(false)} />
+      ) : (
+        <RegisterForm onSwitch={() => setIsLogin(true)} />
+      )}
+    </div>
   );
-}
+};
 
-
+export default Page;

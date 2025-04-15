@@ -14,7 +14,7 @@ export async function login(
     if (response.status !== 200) {
       throw new Error("Login failed");
     }
-
+    console.log(response.headers["authorization"]);
     const authHeader = response.headers["authorization"];
     if (!authHeader) throw Error("No token provided");
     const token = extractToken(authHeader) as string;
@@ -26,21 +26,16 @@ export async function login(
   }
 }
 
-export async function register(
-  userData: RegisterType
-): Promise<{ token: string; data: any }> {
+export async function register(userData: RegisterType) {
   try {
     const response = await axios.post(`${API_URL}/auth/signup`, userData);
 
-    if (response.status !== 200) {
+    console.log("first response", response);
+    if (response.status !== 202) {
       throw new Error("Registration failed");
     }
-
-    const authHeader = response.headers["authorization"];
-    if (!authHeader) throw Error("No token provided");
-    const token = extractToken(authHeader) as string;
-
-    return { token: token, data: response.data };
+    console.log(response.data.message);
+    return response.data;
   } catch (error) {
     handleError(error);
     throw error;
@@ -53,7 +48,6 @@ export async function logout() {
     return response.data;
   } catch (error) {
     handleError(error);
-    
   }
 }
 

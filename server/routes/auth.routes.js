@@ -11,6 +11,6 @@ const { tryCatch } = require("../utils/tryCatch");
 
 router.post("/signup", validateDto(registerSchema), tryCatch(signUp));
 router.post("/login", validateDto(loginSchema), tryCatch(signIn));
-router.get("/veriry-user", tryCatch(verifyEmail));
+router.get("/verify-user", tryCatch(verifyEmail));
 
 module.exports = router;
