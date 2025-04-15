@@ -67,6 +67,7 @@ class NoteService {
       select: {
         id: true,
         title: true,
+        content: true,
         slug: true,
         updatedAt: true,
       },
@@ -178,11 +179,19 @@ class NoteService {
     return data;
   }
 
-  async updateNotes(userId, slug, data) {
+  async updateNotes(slug, data, userId) {
+    console.log(slug, data);
+
     const updatedNote = await prisma.note.update({
-      where: { slug: slug },
+      where: {
+        slug_authorId: {
+          slug,
+          authorId: userId,
+        },
+      },
       data: {
         ...data,
+        updatedAt: new Date(),
       },
     });
 

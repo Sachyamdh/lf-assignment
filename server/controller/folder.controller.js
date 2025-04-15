@@ -6,8 +6,9 @@ const createFolder = (req, res) => {
 };
 
 // Get all folders
-const getAllFolders = (req, res) => {
-  return Folder.getAllFolders(req.userId);
+const getAllFolders = async (req, res) => {
+  const folder = await Folder.getAllFolders(req.params.userId);
+  res.status(200).json({ message: "success", data: folder });
 };
 
 module.exports = {

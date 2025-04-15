@@ -30,7 +30,12 @@ export const updateNote = async (
   id: string,
   updatedNote: { title: string; content: string }
 ) => {
-  const response = await axios.patch(`/update/${id}`, updateNote);
+  console.log(id);
+  const response = await axiosInstance.patch(
+    `/notes/update/${id}`,
+    updatedNote
+  );
+  return response.data.data;
 };
 
 export const getNoteById = async (slug: string) => {

@@ -31,10 +31,11 @@ export const useUpdateNote = () => {
 
   return useMutation({
     mutationFn: (payload: {
-      id: string;
+      slug: string;
       data: { title: string; content: string };
     }) => {
-      return updateNote(payload.id, payload.data);
+      console.log("hook", payload.slug);
+      return updateNote(payload.slug, payload.data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });

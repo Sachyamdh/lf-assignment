@@ -8,7 +8,7 @@ const validateDto = require("../middleware/validateDto");
 const createFolderDto = require("../dtos/folder.dto");
 const { tryCatch } = require("../utils/tryCatch");
 
-router.get("/get", validateDto(createFolderDto), tryCatch(getAllFolders));
-router.post("/create", tryCatch(createFolder));
+router.get("/get", tryCatch(getAllFolders));
+router.post("/create", validateDto(createFolderDto), tryCatch(createFolder));
 
 module.exports = router;

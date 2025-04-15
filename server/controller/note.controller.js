@@ -13,17 +13,13 @@ const getAllNotes = async (req, res) => {
 
 // Get a single note by ID
 const getNoteById = async (req, res) => {
-  try {
-    const userId = req.userId;
-    console.log("here");
-    const note = await Note.getNotesBySlug(req.params.id, req.userId);
-    if (!note) {
-      throw new AppError("No Notes found", "Notes not found", 404);
-    }
-    res.status(200).json({ status: "success", data: note });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching note", error });
+  const userId = req.userId;
+  console.log("here");
+  const note = await Note.getNotesBySlug(req.params.id, req.userId);
+  if (!note) {
+    throw new AppError("No Notes found", "Notes not found", 404);
   }
+  res.status(200).json({ status: "success", data: note });
 };
 
 // Create a new note
@@ -35,7 +31,7 @@ const createNote = async (req, res) => {
 
 // Update a note by ID
 const updateNote = async (req, res) => {
-  const data = await Note.updateNotes(req?.body);
+  const data = await Note.updateNotes(req?.params.id, req?.body, req.userId);
   if (!data)
     throw new AppError("Failed to update note", "Failed to Update note", 503);
 

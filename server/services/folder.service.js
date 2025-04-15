@@ -25,6 +25,7 @@ class FolderService {
         name: true,
         notes: {
           select: {
+            title: true,
             slug: true,
           },
         },
