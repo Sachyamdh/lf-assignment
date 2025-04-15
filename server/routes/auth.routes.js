@@ -6,11 +6,13 @@ const {
   signUp,
   verifyEmail,
   signIn,
+  verifyUser,
 } = require("../controller/auth.controller");
 const { tryCatch } = require("../utils/tryCatch");
 
 router.post("/signup", validateDto(registerSchema), tryCatch(signUp));
 router.post("/login", validateDto(loginSchema), tryCatch(signIn));
 router.get("/verify-user", tryCatch(verifyEmail));
+router.post("/verify-token", tryCatch(verifyUser));
 
 module.exports = router;

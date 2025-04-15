@@ -1,6 +1,6 @@
 const AppError = require("../middleware/AppError");
 const User = require("../services/user.service");
-const { jwtToken } = require("../utils/authUtils");
+const { jwtToken, jwtVerify } = require("../utils/authUtils");
 
 //signUp User
 const signUp = async (req, res) => {
@@ -59,4 +59,13 @@ const resetPassword = async (req, res) => {
   res.status(200).json({ message: "Password reset successfully" });
 };
 
-module.exports = { signUp, verifyEmail, signIn, resetPassword };
+const verifyUser = async (req, res) => {
+  const token = req?.body;
+  if (!token) throw new AppError("Client Error", "No token available", 404);
+  const verified = jwtVerify(token);
+  if (!verified)
+    throw new AppError("JWT Error", "Token verification failed", 404);
+  res.status(200).json({ message: "success" });
+};
+
+module.exports = { signUp, verifyEmail, signIn, resetPassword, verifyUser };

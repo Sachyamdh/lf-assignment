@@ -3,7 +3,7 @@ import { RegisterType, LoginType } from "@/src/types/userType";
 import { extractToken } from "../utils/tokenExttractor";
 import handleError from "./errorHandler";
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function login(
   credentials: LoginType
