@@ -5,7 +5,7 @@ class FolderService {
   constructor() {}
   /**
    * Create a new note
-   * @param {number} authorId - userId  createign the  noet
+   * @param {number} userId - userId  createign the  noet
    */
   async createFolder(userId, folderData) {
     const data = prisma.folder.create({
@@ -33,3 +33,5 @@ class FolderService {
     return data;
   }
 }
+
+module.exports = new FolderService();

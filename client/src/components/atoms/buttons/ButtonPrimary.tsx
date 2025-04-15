@@ -8,6 +8,7 @@ interface ButtonPrimaryProps {
   type?: "button" | "submit" | "reset";
   className?: string;
   icon?: ReactNode;
+  disabled?: boolean;
 }
 
 export function ButtonPrimary({
@@ -16,9 +17,15 @@ export function ButtonPrimary({
   type = "button",
   className = "",
   icon,
+  disabled = false,
 }: ButtonPrimaryProps) {
   return (
-    <button type={type} onClick={onClick} className={`${className}`}>
+    <button
+      disabled={disabled}
+      type={type}
+      onClick={onClick}
+      className={`${className}`}
+    >
       {icon && <span className={styles.icon}>{icon}</span>}
       {children}
     </button>

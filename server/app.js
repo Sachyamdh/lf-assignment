@@ -20,9 +20,14 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-
+console.log(process.env.CORS_ORIGIN, process.env.METHODS?.split(","));
 app.use(
-  cors({ origin: "http://localhost:3000",credentials: true, exposedHeaders: ["Authorization"] })
+  cors({
+    origin: process.env.CORS_ORIGIN.split(","),
+    credentials: true,
+    exposedHeaders: ["Authorization"],
+    allowedHeaders: ["Authorization", "Content-Type"],
+  })
 );
 app.use(helmet());
 process.env.NODE_ENV === "development" && app.use(morgan("dev"));

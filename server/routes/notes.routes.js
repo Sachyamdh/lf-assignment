@@ -16,6 +16,6 @@ const router = express.Router();
 router.get("/get", tryCatch(getAllNotes));
 router.get("/get/:id", tryCatch(getNoteById));
 router.post("/create", validateDto(createNoteSchema), tryCatch(createNote));
-router.patch("/:id", validateDto(updateNoteSchema), tryCatch(updateNote));
-router.delete("/:id", tryCatch(deleteNote));
+router.patch("/update/:id", validateDto(updateNoteSchema), tryCatch(updateNote));
+router.delete("/delete/:id", tryCatch(deleteNote));
 module.exports = router;

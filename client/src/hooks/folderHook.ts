@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getFolders,
   createFolder,
-  deleteFolder,
+  // deleteFolder,
 } from "@/src/services/folderService";
 import { Folder } from "@/src/types/folderType";
 
@@ -26,13 +26,13 @@ export const useCreateFolder = () => {
   });
 };
 
-export const useDeleteFolder = () => {
-  const queryClient = useQueryClient();
+// export const useDeleteFolder = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: deleteFolder,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["folders"] });
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: deleteFolder,
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ["folders"] });
+//     },
+//   });
+// };

@@ -1,42 +1,24 @@
 import axios from "axios";
 import { Folder } from "../types/folderType";
-
-const API_URL = process.env.API_URL;
+import axiosInstance from "./axiosInstance";
 
 export async function getFolders(): Promise<Folder[]> {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("Not authenticated");
-
-  const response = await axios.get(`${API_URL}/api/v1/folder`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axiosInstance.get(`/folder/get`);
 
   return response.data;
 }
 
-export async function createFolder(name: string): Promise<Folder> {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("Not authenticated");
-
-  const response = await axios.post(
-    `${API_URL}/api/v1/folder`,
-    { name },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+export async function createFolder(folderData:{name: string}): Promise<Folder> {
+    const response = await axiosInstance.post('/folders/create',folderData)
 
   return response.data;
 }
 
-export async function deleteFolder(id: number): Promise<void> {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("Not authenticated");
+// export async function deleteFolder(id: number): Promise<void> {
+//   const token = localStorage.getItem("token");
+//   if (!token) throw new Error("Not authenticated");
 
-  await axios.delete(`${API_URL}/api/v1/folder/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-}
+//   await axios.delete(`${API_URL}/api/v1/folder/${id}`, {
+//     headers: { Authorization: `Bearer ${token}` },
+//   });
+// }
