@@ -60,7 +60,8 @@ const resetPassword = async (req, res) => {
 };
 
 const verifyUser = async (req, res) => {
-  const token = req?.body;
+  const token = req?.body.token;
+  console.log("controller", token);
   if (!token) throw new AppError("Client Error", "No token available", 404);
   const verified = jwtVerify(token);
   if (!verified)

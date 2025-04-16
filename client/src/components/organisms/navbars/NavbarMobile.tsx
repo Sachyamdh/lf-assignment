@@ -1,17 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
-import { FiMenu, FiLogIn } from "react-icons/fi";
+import { useState } from "react";
+import { FiMenu, FiLogIn, FiLogOut } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
-import { useAuth } from "@/src/contexts/AuthContext";
 import { NAV_ITEMS, AUTH_ITEMS } from "@/src/utils/routes";
 import Link from "next/link";
-import IconButton from "../../atoms/buttons/IconButtons";
 import styles from "./navbar.module.scss";
-
+import { useUser, useLogout } from "@/src/hooks/authHook";
+import { ButtonPrimary } from "@/src/components/atoms/buttons/ButtonPrimary";
+import IconButton from "../../atoms/buttons/IconButtons";
 export function NavbarMobile() {
-  const { user, signIn, signOut } = useAuth();
+  const { data: authState } = useUser();
+  const { mutate: logout } = useLogout();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  if (authState === null) {
+    return null;
+  }
 
   const toggleDrawer = () => {
     if (isAnimating) return;
@@ -31,28 +36,32 @@ export function NavbarMobile() {
     <>
       {/* Top Navigation Bar */}
       <header className={styles.navbarMobile__header}>
-        <button
-          className={styles.navbarMobile__menuButton}
-          onClick={() => setDrawerOpen(true)}
+        <IconButton
+          onClick={toggleDrawer}
           aria-label="Open menu"
-        >
-          <FiMenu />
-        </button>
+          icon={<FiMenu />}
+          className={styles.navbarMobile__menuButton}
+        />
 
-        {user ? (
-          <div className={styles.navbarMobile__avatar} />
+        {authState ? (
+          <IconButton
+            onClick={() => logout()}
+            aria-label="Sign out"
+            icon={<FiLogOut />}
+            className={styles.navbar__authButton}
+          />
         ) : (
-          <button
-            className={styles.navbarMobile__menuButton}
-            onClick={signIn}
-            aria-label="Sign in"
-          >
-            <FiLogIn />
-          </button>
+          <Link href="/auth" passHref>
+            <ButtonPrimary
+              icon={<AUTH_ITEMS.signIn.icon />}
+              className={styles.navbar__authButton}
+            >
+              {AUTH_ITEMS.signIn.name}
+            </ButtonPrimary>
+          </Link>
         )}
       </header>
 
-      {/* Drawer */}
       {drawerOpen && (
         <div
           className={`${styles.navbarMobile__drawer} ${
@@ -62,9 +71,11 @@ export function NavbarMobile() {
           }`}
         >
           <div className={styles.navbarMobile__closeButton}>
-            <button onClick={closeDrawer} aria-label="Close menu">
-              <IoMdClose />
-            </button>
+            <IconButton
+              onClick={closeDrawer}
+              aria-label="Close menu"
+              icon={<IoMdClose />}
+            />
           </div>
 
           <nav className={styles.navbarMobile__nav}>
@@ -85,13 +96,8 @@ export function NavbarMobile() {
           </nav>
         </div>
       )}
-
-      {/* Backdrop */}
       {drawerOpen && (
-        <div
-          className={styles.navbarMobile__backdrop}
-          onClick={closeDrawer}
-        />
+        <div className={styles.navbarMobile__backdrop} onClick={closeDrawer} />
       )}
     </>
   );

@@ -1,18 +1,15 @@
 .hero {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    var(--background-primary) 0%,
-    var(--background-secondary) 100%
-  );
+  min-height: 90vh;
+  background: rgb(0, 0, 0,0.1);
   padding: 2rem;
   text-align: center;
   color: var(--text-primary);
 
-  &Content {
+  &__content {
     max-width: 800px;
     padding: 2rem;
     border-radius: 1rem;
@@ -20,28 +17,28 @@
     backdrop-filter: blur(10px);
   }
 
-  &Title {
-    font-size: 3rem;
+  &__heroTitle {
+    font-size: clamp(2rem, 3rem, 4rem);
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-    background: linear-gradient(
-      to right,
-      var(--accent-primary),
-      var(--accent-secondary)
-    );
+    background: var(--color-accent);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  &Subtitle {
-    font-size: 1.5rem;
+  &__subtitle {
+    font-size: clamp(1rem, (1.2rem + 0.2vw), 2rem);
     margin-bottom: 2.5rem;
     opacity: 0.9;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    background: var(--color-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   &Button {

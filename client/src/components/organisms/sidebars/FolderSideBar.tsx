@@ -12,23 +12,25 @@ import FolderCard from "../../molecules/cards/FolderCard";
 import { CgFolderAdd } from "react-icons/cg";
 import { MdOutlineStickyNote2 } from "react-icons/md";
 import { FaArchive } from "react-icons/fa";
-import { useCreateNote } from "@/src/hooks/noteHook";
+import { useNotes } from "@/src/hooks/noteHook";
 import { useCreateFolder, useFolders } from "@/src/hooks/folderHook";
 import FileCard from "../../atoms/cards/FileCard";
 import { useFolderContext } from "@/src/contexts/FolderContext";
 import CreateFolderForm from "../../molecules/forms/FolderForm";
 import CreateNoteForm from "../../molecules/forms/CreateNoteForm";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const FolderSideBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { setFolder, setFile, resetToHome } = useFolderContext();
-  const { mutate: createNote } = useCreateNote();
+  const { data: Notes = [], isLoading: isLoadingNotes } = useNotes();
   const { mutate: createFolder } = useCreateFolder();
   const [showFolderForm, setShowFolderForm] = useState(false);
   const [showNoteForm, setShowNoteForm] = useState(false);
   const { data: folders = [], isLoading } = useFolders();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading && isLoadingNotes) return <p>Loading...</p>;
   const handleCreateNew = () => {
     setShowNoteForm(!showNoteForm);
   };
@@ -56,17 +58,21 @@ const FolderSideBar = () => {
     setShowFolderForm(false);
   };
 
-  const handleNoteSubmit = (data: {
-    noteTitle: string;
-    noteContent: string;
-  }) => {
-    // createNote({ title: data.noteTitle, content: data.noteContent });
+  const handleNoteSubmit = () => {
     setShowNoteForm(false);
   };
 
   return (
     <>
-      <aside className={clsx(styles.sidebar)}>
+      <IconButton
+        className={`${styles.sidebar__toggleBtn}`}
+        icon={<GiHamburgerMenu size={12} />}
+        onClick={() => setIsOpen(!isOpen)}
+      />
+
+      <aside
+        className={`${styles.sidebar} ${isOpen ? styles.sidebar__open : ""}`}
+      >
         <div className={clsx(styles.sidebar__topHolder)}>
           <div className={clsx(styles.sidebar__header)}>
             <div className={styles.sidebar__logo}>
@@ -97,13 +103,13 @@ const FolderSideBar = () => {
         </div>
 
         <div className={clsx(styles.sidebar__folderHolder)}>
-          {recentItems.map((item) => {
+          {Notes.map((item) => {
             return (
               <FileCard
-                key={item.id}
+                key={item.slug}
                 className={clsx(styles.sidebar__fileHolder)}
-                id={item.id}
-                title={item.title}
+                id={item.slug}
+                title={item.title.trim().split(" ").slice(0, 3).join("")}
                 onClick={() => handleFileClick("recent", item.title)}
               >
                 <MdOutlineStickyNote2 />

@@ -5,9 +5,9 @@ import { ButtonPrimary } from "@/src/components/atoms/buttons/ButtonPrimary";
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>Capture Ideas Instantly</h1>
-        <p className={styles.heroSubtitle}>
+      <div className={styles.hero__content}>
+        <h1 className={styles.hero__heroTitle}>Write Notes Instantly</h1>
+        <p className={styles.hero__subtitle}>
           Your thoughts, organized and accessible anywhere
         </p>
         <Link href="/notes/new">

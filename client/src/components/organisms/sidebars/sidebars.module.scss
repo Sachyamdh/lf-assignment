@@ -143,48 +143,58 @@
     align-items: center;
   }
 
-  // .folder-header {
-  //   padding: 0.5rem 1.5rem;
-  //   @include mixin.flex(row, space-between, center);
-  //   cursor: pointer;
-  //   transition: background 0.3s ease-in-out;
+  @media (max-width: 768px) {
+    position: fixed;
+    max-width: 100vw;
+    top: 0;
+    left: -20;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    background-color: var(--color-background-primary);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+  }
 
-  //   &:hover {
-  //     background-color: var(--color-accent);
-  //   }
+  &__open {
+    transform: translateX(0);
+    width: 90vw;
+  }
 
-  //   .folder-name {
-  //     @include mixin.flex(row, flex-start, center);
-  //     gap: 0.75rem;
-  //     font-weight: 500;
-  //     font-size: 0.95rem;
-  //   }
-
-  //   .folder-icon {
-  //     font-size: 1rem;
-  //   }
-
-  //   .folder-arrow {
-  //     font-size: 0.8rem;
-  //     display: flex;
-  //     align-items: center;
-  //   }
-  // }
-
-  // .folder-contents {
-  //   max-height: 500px; // adjust as needed
-  //   overflow: hidden;
-  //   transition: max-height 0.4s ease, opacity 0.4s ease;
-  //   opacity: 1;
-  //   padding-left: 2rem;
-
-  //   &.collapsed {
-  //     max-height: 0;
-  //     opacity: 0;
-  //     padding-left: 2rem;
-  //   }
-  // }
+  &__folderHolder,
+  &__topHolder,
+  &__fileHolder,
+  &__subHeader {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 90vw;
+  }
+  &__subHeader {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 2rem;
+  }
 }
+.sidebar__toggleBtn {
+  display: none;
+  background: transparent;
+  color: var(--color-foreground-primary);
+  border: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: none;
+    border: none;
+  }
+}
+
+
 
 .filesSidebar {
   box-sizing: border-box;

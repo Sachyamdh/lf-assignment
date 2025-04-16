@@ -11,24 +11,22 @@ const FilesSideBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { setFile, folderState } = useFolderContext();
   const router = useRouter();
-
-  // Always call the hook to prevent "fewer hooks" error
   const { data: Notes = [], isLoading } = useNotes();
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    handleResize(); // check initially
+    handleResize(); 
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // Render the component only if it's not mobile
+ 
   if (isMobile) {
-    return null; // No rendering for mobile screens
+    return null; 
   }
 
   if (isLoading) return <p>Loading...</p>;
