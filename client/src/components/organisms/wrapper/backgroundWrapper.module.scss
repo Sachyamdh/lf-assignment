@@ -1,19 +1,19 @@
+// backgroundWrapper.module.scss
+$bg-primary: #000000;
+$bg-secondary: #0a0a0a;
+$text-primary: #00ff00;
+$text-secondary: #00cc00;
+$accent-primary: #00ff88;
+$cursor-color: $accent-primary;
+$overlay-color: rgba(0, 20, 0, 0.7);
+
 .backgroundWrapper {
+  box-sizing: border-box;
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
   overflow: hidden;
-}
-
-.videoBackground {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  opacity: 0.15;
+  background-color: $bg-primary;
 }
 
 .typingBackground {
@@ -23,35 +23,44 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   z-index: 0;
+  overflow: hidden;
 }
 
 .typingContainer {
-  max-width: 800px;
+  max-width: 50vw;
+  width: 90%;
   padding: 2rem;
   font-family: "Courier New", monospace;
-  font-size: 1.5rem;
-  color: rgba(var(--text-primary-rgb), 0.2);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: $text-primary;
   position: relative;
+  text-shadow: 0 0 8px rgba($text-primary, 0.5);
+  filter: blur(2px);
 }
 
 .typingText {
   white-space: pre-wrap;
-  line-height: 1.6;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 4px;
 }
 
 .cursor {
   display: inline-block;
-  width: 10px;
-  height: 1.5rem;
-  background-color: var(--accent-primary);
+  width: 12px;
+  height: 2rem;
+  background-color: $cursor-color;
   vertical-align: middle;
-  margin-left: 4px;
+  margin-left: 6px;
+  box-shadow: 0 0 10px $cursor-color;
 
   &.blinking {
-    animation: blink 1s infinite;
+    animation: blink 0.8s infinite;
   }
 }
 
@@ -61,132 +70,31 @@
     opacity: 1;
   }
   50% {
-    opacity: 0;
+    opacity: 0.3;
   }
 }
 
 .overlay {
   position: absolute;
-  top: 0; // BackgroundWrapper.module.scss
-  $bg-primary: #000000;
-  $bg-secondary: #121212;
-$text-primary: #00ff00;
-$text-secondary: #008000;
-  $accent-primary: #bb86fc;
-  $accent-secondary: #3700b3;
-  $cursor-color: $accent-primary;
-  $overlay-start: rgba(0, 0, 0, 0.9);
-  $overlay-end: rgba(18, 18, 18, 0.7);
-
-  .backgroundWrapper {
-    position: relative;
-    width: 100%;
-    min-height: 80vh;
-    overflow: hidden;
-    background-color: $bg-primary;
-  }
-
-  .videoBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    opacity: 0.15;
-  }
-
-  .typingBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 0;
-    background-color: $bg-secondary;
-  }
-
-  .typingContainer {
-    max-width: 800px;
-    padding: 2rem;
-    font-family: "Courier New", monospace;
-    font-size: 1.5rem;
-    color: rgba($text-primary, 0.5);
-    position: relative;
-  }
-
-  .typingText {
-    white-space: pre-wrap;
-    line-height: 1.6;
-    color: $text-secondary;
-  }
-
-  .cursor {
-    display: inline-block;
-    width: 10px;
-    height: 1.5rem;
-    background-color: $cursor-color;
-    vertical-align: middle;
-    margin-left: 4px;
-
-    &.blinking {
-      animation: blink 1s infinite;
-    }
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to bottom,
-      $overlay-start 0%,
-      $overlay-end 100%
-    );
-    z-index: -1;
-  }
-
-  .content {
-    position: relative;
-    z-index: 1;
-    color: $text-primary;
-  }
-
-  // Responsive adjustments
-  @media (max-width: 768px) {
-    .typingContainer {
-      font-size: 1.2rem;
-      padding: 1rem;
-    }
-  }
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--background-rgb), 0.8) 0%,
-    rgba(var(--background-rgb), 0.5) 100%
-  );
   z-index: -1;
 }
 
 .content {
   position: relative;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .typingContainer {
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
+
+  .typingText {
+    padding: 1rem;
+  }
 }

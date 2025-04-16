@@ -8,9 +8,13 @@ import {
 import { useRouter } from "next/navigation";
 
 export function useUser() {
-  return useQuery({
+  return useQuery<boolean | null>({
     queryKey: ["user"],
-    queryFn: getCurrentUser,
+    queryFn: () => {
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("token") : null;
+      return token ? true : false;
+    },
     retry: false,
   });
 }
@@ -20,12 +24,13 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: login,
-    onSuccess: (user) => {
+    onSuccess: async (user) => {
       localStorage.setItem("token", user.token);
-      router.push("/notes");
+      await Promise.resolve();
+      router.push("/home");
     },
     onError: (error) => {
-      console.error("Registration failed:", error);
+      console.error("Login failed:", error);
     },
   });
 }
@@ -35,9 +40,9 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: register,
-    onSuccess:((response)=>{
-        return response.message
-    }),
+    onSuccess: (response) => {
+      return response.message;
+    },
     onError: (error) => {
       console.error("Registration failed:", error);
     },
@@ -49,11 +54,17 @@ export function useLogout() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: logout,
+    mutationFn: async () => {
+      return Promise.resolve();
+    },
     onSuccess: () => {
       localStorage.removeItem("token");
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.setQueryData(["user"], { isAuthenticated: false });
+      queryClient.removeQueries();
       router.push("/home");
+    },
+    onError: (error) => {
+      console.error("Logout error:", error);
     },
   });
 }
