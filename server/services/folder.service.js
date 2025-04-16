@@ -11,6 +11,10 @@ class FolderService {
     const data = prisma.folder.create({
       userId: userId,
       ...folderData,
+      select: {
+        id: true,
+        name: true,
+      },
     });
     if (!note)
       throw new AppError("Server Error", "Failed to create folder", 500);
